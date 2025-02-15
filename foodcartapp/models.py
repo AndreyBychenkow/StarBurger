@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -121,6 +122,11 @@ class Product(models.Model):
         'описание',
         max_length=200,
         blank=True,
+    )
+    is_available = models.BooleanField(
+        'Доступен для заказа',
+        default=True,
+        db_index=True
     )
 
     objects = ProductQuerySet.as_manager()
