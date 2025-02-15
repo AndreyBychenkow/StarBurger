@@ -10,16 +10,22 @@ from rest_framework import status
 
 
 class OrderAPIView(APIView):
-    def get(self, request):
-        return Response({})
-
     def post(self, request):
-        # Существующая логика обработки POST
         serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
+        if not serializer.is_valid():
+            return Response(
+                {'errors': serializer.errors},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
             order = serializer.save()
             return Response({'id': order.id}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {'error': str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 
 def banners_list_api(request):
