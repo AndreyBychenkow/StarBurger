@@ -1,10 +1,25 @@
 from django.http import JsonResponse
 from django.templatetags.static import static
 
-import json
-
-from .models import Order, OrderItem
+from .serializers import OrderSerializer
 from .models import Product
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+
+class OrderAPIView(APIView):
+    def get(self, request):
+        return Response({})
+
+    def post(self, request):
+        # Существующая логика обработки POST
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            order = serializer.save()
+            return Response({'id': order.id}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def banners_list_api(request):
@@ -67,23 +82,3 @@ def product_list_api(request):
             "indent": 4,
         },
     )
-
-
-def register_order(request):
-    if request.method == "POST":
-        data = json.loads(request.body.decode("utf-8"))
-
-        order = Order.objects.create(
-            firstname=data["firstname"],
-            lastname=data["lastname"],
-            phonenumber=data["phonenumber"],
-            address=data["address"],
-        )
-
-        for item in data["products"]:
-            product = Product.objects.get(id=item["product"])
-            OrderItem.objects.create(
-                order=order, product=product, quantity=item["quantity"]
-            )
-
-        return JsonResponse({"id": order.id})
