@@ -1,5 +1,45 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from phonenumber_field.modelfields import PhoneNumberField
+
+
+class Order(models.Model):
+    firstname = models.CharField('Имя', max_length=50)
+    lastname = models.CharField('Фамилия', max_length=50)
+    phonenumber = PhoneNumberField('Номер телефона', region='RU')
+    address = models.CharField('Адрес', max_length=200)
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'заказ'
+        verbose_name_plural = 'заказы'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'Заказ №{self.id} от {self.created_at.strftime("%d-%m-%Y %H:%M")}'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='items',
+        verbose_name='заказ'
+    )
+    product = models.ForeignKey(
+        'Product',
+        on_delete=models.CASCADE,
+        related_name='order_items',
+        verbose_name='товар'
+    )
+    quantity = models.PositiveIntegerField('количество', default=1)
+
+    class Meta:
+        verbose_name = 'элемент заказа'
+        verbose_name_plural = 'элементы заказа'
+
+    def __str__(self):
+        return f"{self.product.name} x {self.quantity}"
 
 
 class Restaurant(models.Model):
