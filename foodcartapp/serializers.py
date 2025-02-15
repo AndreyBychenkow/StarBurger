@@ -1,13 +1,10 @@
 from rest_framework import serializers
-from phonenumber_field.validators import validate_international_phonenumber
+from phonenumber_field.serializerfields import PhoneNumberField
 
 from django.core.exceptions import ValidationError
-from django.utils.deconstruct import deconstructible
-
 from .models import Order, OrderItem, Product
 
 
-@deconstructible
 class NameValidator:
     def __call__(self, value):
         for char in value:
@@ -16,7 +13,6 @@ class NameValidator:
                     "Может содержать только буквы, пробелы и дефисы")
 
 
-@deconstructible
 class AddressValidator:
     def __call__(self, value):
         for char in value:
@@ -26,26 +22,26 @@ class AddressValidator:
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(),
+        error_messages={'does_not_exist': 'Товар с ID {pk_value} не существует'}
+    )
+    quantity = serializers.IntegerField(
+        min_value=1,
+        max_value=20,
+        error_messages={
+            'min_value': 'Минимальное количество:  1',
+            'max_value': 'Максимальное количество:  20'
+        }
+    )
+
     class Meta:
         model = OrderItem
         fields = ['product', 'quantity']
-        extra_kwargs = {
-            'product': {'required': True},
-            'quantity': {'required': True}
-        }
-
-    def validate_quantity(self, value):
-        if value < 1 or value > 20:
-            raise serializers.ValidationError(
-                "Количество должно быть от 1 до 20"
-            )
-        return value
 
     def validate_product(self, value):
-        if not Product.objects.filter(pk=value.pk, is_available=True).exists():
-            raise serializers.ValidationError(
-                "Товар недоступен для заказа"
-            )
+        if not value.is_available:
+            raise serializers.ValidationError("Товар недоступен для заказа")
         return value
 
 
@@ -55,55 +51,66 @@ class OrderSerializer(serializers.ModelSerializer):
     firstname = serializers.CharField(
         max_length=10,
         min_length=2,
-        validators=[NameValidator()]
+        trim_whitespace=True,
+        validators=[NameValidator()],
+        error_messages={
+            'min_length': 'Имя должно содержать минимум 2 символа',
+            'max_length': 'Имя не может быть длиннее 10 символов',
+            'blank': 'Имя не может быть пустым'
+        }
     )
+
     lastname = serializers.CharField(
         max_length=20,
         min_length=2,
-        validators=[NameValidator()]
+        trim_whitespace=True,
+        validators=[NameValidator()],
+        error_messages={
+            'min_length': 'Фамилия должна содержать минимум 2 символа',
+            'max_length': 'Фамилия не может быть длиннее 20 символов',
+            'blank': 'Фамилия не может быть пустой'
+        }
     )
-    phonenumber = serializers.CharField(
-        validators=[validate_international_phonenumber]
+
+    phonenumber = PhoneNumberField(
+        error_messages={'invalid': 'Неверный формат номера телефона'}
     )
+
     address = serializers.CharField(
         max_length=200,
         min_length=10,
-        validators=[AddressValidator()]
+        trim_whitespace=True,
+        validators=[AddressValidator()],
+        error_messages={
+            'min_length': 'Адрес должен содержать минимум 10 символов',
+            'max_length': 'Адрес не может быть длиннее 200 символов',
+            'blank': 'Адрес не может быть пустым'
+        }
     )
 
     class Meta:
         model = Order
         fields = ['firstname', 'lastname', 'phonenumber', 'address', 'items']
-        extra_kwargs = {
-            'firstname': {'required': True},
-            'lastname': {'required': True},
-            'phonenumber': {'required': True},
-            'address': {'required': True},
-        }
 
-    def validate_items(self, value):
-        if not value:
-            raise serializers.ValidationError(
-                "Заказ должен содержать минимум один товар"
-            )
+    def validate(self, data):
+        items = data.get('items', [])
 
-        product_ids = {item['product'].id for item in value}
-        if len(product_ids) != len(value):
-            raise serializers.ValidationError(
-                "Обнаружены дублирующиеся товары в заказе"
-            )
 
-        return value
+        product_ids = [item['product'].id for item in items]
+        if len(product_ids) != len(set(product_ids)):
+            raise serializers.ValidationError({
+                'items': ['Обнаружены дублирующиеся товары в заказе']
+            })
+
+        return data
 
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         order = Order.objects.create(**validated_data)
 
-        for item_data in items_data:
-            OrderItem.objects.create(
-                order=order,
-                product=item_data['product'],
-                quantity=item_data['quantity']
-            )
+        OrderItem.objects.bulk_create([
+            OrderItem(order=order, **item_data)
+            for item_data in items_data
+        ])
 
         return order
