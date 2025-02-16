@@ -1,13 +1,17 @@
 from django.contrib import admin
 from django.shortcuts import reverse
+
 from django.templatetags.static import static
 from django.utils.html import format_html
 
 from .models import Product
 from .models import ProductCategory
+
 from .models import Restaurant
 from .models import RestaurantMenuItem
 from .models import Order, OrderItem
+
+from django import forms
 
 
 class RestaurantMenuItemInline(admin.TabularInline):
@@ -56,6 +60,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [
         RestaurantMenuItemInline
     ]
+
     fieldsets = (
         ('Общее', {
             'fields': [
@@ -107,10 +112,24 @@ class ProductAdmin(admin.ModelAdmin):
     get_image_list_preview.short_description = 'превью'
 
 
+class OrderItemForm(forms.ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = ['product', 'quantity', 'fixed_price']
+
+    def clean_fixed_price(self):
+        fixed_price = self.cleaned_data.get('fixed_price')
+        if fixed_price < 0:
+            raise forms.ValidationError(
+                'Фиксированная цена не может быть отрицательной.')
+        return fixed_price
+
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
-    extra = 0
-    fields = ['product', 'quantity']
+    form = OrderItemForm
+    extra = 1
+    fields = ['product', 'quantity', 'fixed_price']
 
 
 @admin.register(Order)

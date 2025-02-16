@@ -20,7 +20,6 @@
       <th>Стоимость</th>
       <th>Состав заказа</th>
     </tr>
-
     {% for order in order_items %}
     <tr>
       <td>{{ order.id }}</td>
@@ -28,7 +27,7 @@
       <td>{{ order.firstname }} {{ order.lastname }}</td>
       <td>{{ order.phonenumber }}</td>
       <td>{{ order.address }}</td>
-      <td class="order-price">{{ order.total_price }} руб.</td>
+      <td class="order-price">{{ order.total_price|default:"0.00" }} руб.</td>
       <td>
         <ul>
           {% for item in order.items.all %}

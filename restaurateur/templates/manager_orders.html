@@ -1,48 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Заказы - Star Burger</title>
-  <meta charset="utf-8">
-  <style>
-    .order-list { margin: 20px; }
-    .order-card {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-    }
-    .product-list { margin-left: 20px; }
-    .order-price { font-weight: bold; color: #ff4500; }
-  </style>
-</head>
-<body>
-<div class="order-list">
-  <h1>Заказы</h1>
+{% extends 'base_restaurateur_page.html' %}
 
-  {% if orders %}
-  {% for order in orders %}
-  <div class="order-card">
-    <h3>Заказ №{{ order.id }} от {{ order.created_at|date:"d.m.Y H:i" }}</h3>
-    <p>Клиент: {{ order.firstname }} {{ order.lastname }}</p>
-    <p>Телефон: {{ order.phonenumber }}</p>
-    <p>Адрес: {{ order.address }}</p>
-    <p class="order-price">Стоимость: {{ order.total_price }} ₽</p>
+{% block title %}Необработанные заказы | Star Burger{% endblock %}
 
-    <h4>Состав заказа:</h4>
-    <ul class="product-list">
-      {% for item in order.items.all %}
-      <li>
-        {{ item.product.name }} –
-        {{ item.quantity }} шт. ×
-        {{ item.product.price|floatformat:2 }} ₽
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endfor %}
-  {% else %}
-  <p>Нет заказов</p>
-  {% endif %}
+{% block content %}
+<center>
+  <h2>Необработанные заказы</h2>
+</center>
+
+<hr/>
+<br/>
+<div class="container">
+  <table class="table table-responsive">
+    <tr>
+      <th>ID заказа</th>
+      <th>Статус</th>
+      <th>Клиент</th>
+      <th>Телефон</th>
+      <th>Адрес доставки</th>
+      <th>Стоимость</th>
+      <th>Состав заказа</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.get_status_display }}</td>
+      <td>{{ order.firstname }} {{ order.lastname }}</td>
+      <td>{{ order.phonenumber }}</td>
+      <td>{{ order.address }}</td>
+      <td class="order-price">{{ order.custom_total_price|default:"0.00" }} руб.</td>
+      <td>
+        <ul>
+          {% for item in order.items.all %}
+          <li>{{ item.product.name }} × {{ item.quantity }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="7">Нет необработанных заказов</td>
+    </tr>
+    {% endfor %}
+  </table>
 </div>
-</body>
-</html>
+{% endblock %}
+
+<style>
+  .order-price { font-weight: bold; color: #ff4500; }
+</style>

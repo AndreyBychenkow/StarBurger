@@ -1,14 +1,18 @@
 from django import forms
 from django.shortcuts import redirect, render
+
 from django.views import View
-
 from django.urls import reverse_lazy
+
 from django.contrib.auth.decorators import user_passes_test
-
 from django.contrib.auth import authenticate, login
-from django.contrib.auth import views as auth_views
 
-from foodcartapp.models import Product, Restaurant, Order
+from django.contrib.auth import views as auth_views
+from django.http import JsonResponse
+
+from foodcartapp.models import Product, Restaurant, Order, \
+    OrderItem
+
 from django.db.models import Sum, F
 
 
@@ -110,6 +114,49 @@ def view_restaurants(request):
 @user_passes_test(is_manager, login_url='restaurateur:login')
 def view_orders(request):
     orders = Order.objects.annotate(
-        total_price=Sum(F('items__quantity') * F('items__product__price'))
+        custom_total_price=Sum(F('items__quantity') * F('items__product__price'))
+
     ).prefetch_related('items__product').all()
     return render(request, 'manager_orders.html', {'orders': orders})
+
+
+def create_order_view(request):
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        phonenumber = request.POST.get('phonenumber')
+        address = request.POST.get('address')
+
+        items = [
+            {'product': Product.objects.get(id=1), 'quantity': 2},
+            {'product': Product.objects.get(id=2), 'quantity': 1}
+        ]
+
+        order = Order(
+            firstname=firstname,
+            lastname=lastname,
+            phonenumber=phonenumber,
+            address=address
+        )
+        order.save()
+
+        total_price = 0
+
+        for item in items:
+            product = item['product']
+            quantity = item['quantity']
+            order_item = OrderItem(
+                order=order,
+                product=product,
+                quantity=quantity,
+                price=product.price
+            )
+            order_item.save()
+            total_price += product.price * quantity
+
+        order.total_price = total_price
+        order.save()
+
+        return JsonResponse({'order_id': order.id, 'total_price': order.total_price})
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
