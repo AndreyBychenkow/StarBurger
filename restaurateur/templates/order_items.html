@@ -28,7 +28,7 @@
       <td>{{ order.firstname }} {{ order.lastname }}</td>
       <td>{{ order.phonenumber }}</td>
       <td>{{ order.address }}</td>
-      <td>{{ order.total_price }} руб.</td>
+      <td class="order-price">{{ order.total_price }} руб.</td>
       <td>
         <ul>
           {% for item in order.items.all %}
@@ -45,3 +45,7 @@
   </table>
 </div>
 {% endblock %}
+
+<style>
+  .order-price { font-weight: bold; color: #ff4500; }
+</style>

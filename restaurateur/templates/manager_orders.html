@@ -12,6 +12,7 @@
       border-radius: 8px;
     }
     .product-list { margin-left: 20px; }
+    .order-price { font-weight: bold; color: #ff4500; }
   </style>
 </head>
 <body>
@@ -25,6 +26,7 @@
     <p>Клиент: {{ order.firstname }} {{ order.lastname }}</p>
     <p>Телефон: {{ order.phonenumber }}</p>
     <p>Адрес: {{ order.address }}</p>
+    <p class="order-price">Стоимость: {{ order.total_price }} ₽</p>
 
     <h4>Состав заказа:</h4>
     <ul class="product-list">

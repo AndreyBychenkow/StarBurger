@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import views as auth_views
 
 from foodcartapp.models import Product, Restaurant, Order
+from django.db.models import Sum, F
 
 
 class Login(forms.Form):
@@ -17,7 +18,8 @@ class Login(forms.Form):
         max_length=75,
         required=True,
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Укажите имя пользователя"}
+            attrs={"class": "form-control",
+                   "placeholder": "Укажите имя пользователя"}
         ),
     )
     password = forms.CharField(
@@ -75,7 +77,8 @@ def view_products(request):
     products_with_restaurant_availability = []
     for product in products:
         availability = {
-            item.restaurant_id: item.availability for item in product.menu_items.all()
+            item.restaurant_id: item.availability for item in
+            product.menu_items.all()
         }
         ordered_availability = [
             availability.get(restaurant.id, False) for restaurant in restaurants
@@ -104,7 +107,9 @@ def view_restaurants(request):
     )
 
 
-@user_passes_test(is_manager, login_url="restaurateur:login")
+@user_passes_test(is_manager, login_url='restaurateur:login')
 def view_orders(request):
-    orders = Order.objects.prefetch_related("items__product").all()
-    return render(request, "manager_orders.html", {"orders": orders})
+    orders = Order.objects.annotate(
+        total_price=Sum(F('items__quantity') * F('items__product__price'))
+    ).prefetch_related('items__product').all()
+    return render(request, 'manager_orders.html', {'orders': orders})
