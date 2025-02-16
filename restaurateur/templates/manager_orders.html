@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Заказы - Star Burger</title>
+  <meta charset="utf-8">
+  <style>
+    .order-list { margin: 20px; }
+    .order-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+    .product-list { margin-left: 20px; }
+  </style>
+</head>
+<body>
+<div class="order-list">
+  <h1>Заказы</h1>
+
+  {% if orders %}
+  {% for order in orders %}
+  <div class="order-card">
+    <h3>Заказ №{{ order.id }} от {{ order.created_at|date:"d.m.Y H:i" }}</h3>
+    <p>Клиент: {{ order.firstname }} {{ order.lastname }}</p>
+    <p>Телефон: {{ order.phonenumber }}</p>
+    <p>Адрес: {{ order.address }}</p>
+
+    <h4>Состав заказа:</h4>
+    <ul class="product-list">
+      {% for item in order.items.all %}
+      <li>
+        {{ item.product.name }} –
+        {{ item.quantity }} шт. ×
+        {{ item.product.price|floatformat:2 }} ₽
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p>Нет заказов</p>
+  {% endif %}
+</div>
+</body>
+</html>
