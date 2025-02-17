@@ -146,7 +146,8 @@ class OrderAdmin(admin.ModelAdmin):
         'lastname',
         'phonenumber',
         'address',
-        'formatted_date'
+        'formatted_date',
+        'status'
     ]
     search_fields = [
         'firstname',
@@ -155,15 +156,17 @@ class OrderAdmin(admin.ModelAdmin):
         'address'
     ]
 
-    list_filter = ['created_at']
+    list_filter = ['created_at', 'status']
 
     ordering = ['-created_at']
 
     def response_change(self, request, obj):
         next_url = request.GET.get('next')
-        if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts=None):
+        if next_url and url_has_allowed_host_and_scheme(next_url,
+                                                        allowed_hosts=None):
             return redirect(next_url)
         return super().response_change(request, obj)
+
 
 @admin.register(ProductCategory)
 class ProductAdmin(admin.ModelAdmin):

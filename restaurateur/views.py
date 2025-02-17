@@ -114,9 +114,8 @@ def view_restaurants(request):
 
 @user_passes_test(is_manager, login_url='restaurateur:login')
 def view_orders(request):
-    orders = Order.objects.annotate(
+    orders = Order.objects.exclude(status='completed').annotate(
         custom_total_price=Sum(F('items__quantity') * F('items__product__price'))
-
     ).prefetch_related('items__product').all()
     return render(request, 'manager_orders.html', {'orders': orders})
 
