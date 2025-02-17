@@ -14,6 +14,7 @@ from foodcartapp.models import Product, Restaurant, Order, \
     OrderItem
 
 from django.db.models import Sum, F
+from django.db import transaction
 
 
 class Login(forms.Form):
@@ -132,31 +133,38 @@ def create_order_view(request):
             {'product': Product.objects.get(id=2), 'quantity': 1}
         ]
 
-        order = Order(
-            firstname=firstname,
-            lastname=lastname,
-            phonenumber=phonenumber,
-            address=address
-        )
-        order.save()
+        try:
+            with transaction.atomic():
+                order = Order(
+                    firstname=firstname,
+                    lastname=lastname,
+                    phonenumber=phonenumber,
+                    address=address
+                )
+                order.save()
 
-        total_price = 0
+                total_price = 0
 
-        for item in items:
-            product = item['product']
-            quantity = item['quantity']
-            order_item = OrderItem(
-                order=order,
-                product=product,
-                quantity=quantity,
-                price=product.price
-            )
-            order_item.save()
-            total_price += product.price * quantity
+                for item in items:
+                    product = item['product']
+                    quantity = item['quantity']
 
-        order.total_price = total_price
-        order.save()
+                    order_item = OrderItem(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                        price=product.price
+                    )
+                    order_item.save()
+                    total_price += product.price * quantity
 
-        return JsonResponse({'order_id': order.id, 'total_price': order.total_price})
+                order.total_price = total_price
+                order.save()
+
+            return JsonResponse(
+                {'order_id': order.id, 'total_price': order.total_price})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
