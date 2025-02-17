@@ -71,6 +71,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'get_image_preview',
                 'price',
                 'comment',
+                'payment_method',
             ]
         }),
         ('Подробно', {
@@ -149,7 +150,8 @@ class OrderAdmin(admin.ModelAdmin):
         'address',
         'formatted_date',
         'status',
-        'comment'
+        'comment',
+        'payment_method',
     ]
     search_fields = [
         'firstname',

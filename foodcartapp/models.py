@@ -28,6 +28,19 @@ class Order(models.Model):
         db_index=True
     )
 
+    PAYMENT_METHOD_CHOICES = [
+        ('electronic', 'Электронно'),
+        ('cash', 'Наличные'),
+    ]
+
+    payment_method = models.CharField(
+        'Способ оплаты',
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        default='cash',
+        db_index=True
+    )
+
     comment = models.TextField(
         'Комментарий',
         blank=True,
