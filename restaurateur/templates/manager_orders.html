@@ -14,11 +14,14 @@
     <tr>
       <th>ID заказа</th>
       <th>Статус</th>
+      <th>Создан</th>
+      <th>Звонок</th>
+      <th>Доставка</th>
       <th>Клиент</th>
       <th>Телефон</th>
-      <th>Адрес доставки</th>
-      <th>Стоимость</th>
-      <th>Состав заказа</th>
+      <th>Адрес</th>
+      <th>Сумма</th>
+      <th>Состав</th>
       <th>Комментарий</th>
       <th>Ссылка на админку</th>
     </tr>
@@ -26,11 +29,14 @@
     <tr>
       <td>{{ order.id }}</td>
       <td>{{ order.get_status_display }}</td>
+      <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+      <td>{{ order.called_at|date:"d.m.Y H:i"|default:"—" }}</td>
+      <td>{{ order.delivered_at|date:"d.m.Y H:i"|default:"—" }}</td>
       <td>{{ order.firstname }} {{ order.lastname }}</td>
       <td>{{ order.phonenumber }}</td>
       <td>{{ order.address }}</td>
-      <td class="order-price">{{ order.custom_total_price|default:"0.00" }} руб.</td>
-      <td>
+      <td class="order-price">{{ order.custom_total_price|default:"0.00" }} ₽</td>
+      <td class="order-items">
         <ul>
           {% for item in order.items.all %}
           <li>{{ item.product.name }} × {{ item.quantity }}</li>
@@ -40,8 +46,8 @@
       <td class="order-comment">
         {% if order.comment %}
         <details>
-          <summary>Показать</summary>
-          <div class="comment-content">{{ order.comment }}</div>
+          <summary>📝Показать</summary>
+          <div class="comment-bubble">{{ order.comment }}</div>
         </details>
         {% else %}
         —
@@ -50,13 +56,13 @@
       <td>
         <a href="{% url 'admin:foodcartapp_order_change' order.id %}?next={{ request.get_full_path|urlencode }}"
            class="edit-link">
-          ✎ Редактировать
+          ✎Редактировать
         </a>
       </td>
     </tr>
     {% empty %}
     <tr>
-      <td colspan="9">Нет необработанных заказов</td>
+      <td colspan="12" class="text-muted">Нет новых заказов</td>
     </tr>
     {% endfor %}
   </table>
@@ -65,40 +71,67 @@
 
 <style>
   .order-price {
-    font-weight: bold;
-    color: #ff4500;
+    font-weight: 600;
+    color: #2e7d32;
     white-space: nowrap;
   }
 
   .order-comment {
-    max-width: 250px;
-    word-wrap: break-word;
+    max-width: 200px;
   }
 
-  .comment-content {
-    padding: 8px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    margin-top: 5px;
+  .comment-bubble {
+    background: #f3f4f6;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-top: 4px;
+    font-size: 0.9em;
+    line-height: 1.4;
   }
 
-  a.edit-link {
+  .edit-btn {
+    color: #3b82f6;
     text-decoration: none;
-    color: #007bff;
-    white-space: nowrap;
+    font-size: 1.1em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
   }
 
-  a.edit-link:hover {
-    text-decoration: underline;
+  .edit-btn:hover {
+    background: #eef2ff;
+    text-decoration: none;
+  }
+
+  td {
+    vertical-align: top;
+    padding: 12px 8px !important;
+  }
+
+  th {
+    background: #f8f9fa;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1);
+  }
+
+  .order-items ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .order-items li {
+    padding: 2px 0;
+    font-size: 0.95em;
   }
 
   details summary {
     cursor: pointer;
-    color: #6c757d;
     outline: none;
   }
 
-  details summary:hover {
-    color: #007bff;
+  details summary::-webkit-details-marker {
+    display: none;
   }
 </style>
