@@ -28,6 +28,12 @@ class Order(models.Model):
         db_index=True
     )
 
+    comment = models.TextField(
+        'Комментарий',
+        blank=True,
+        help_text='Дополнительная информация о заказе'
+    )
+
     firstname = models.CharField('Имя', max_length=50)
     lastname = models.CharField('Фамилия', max_length=50)
     phonenumber = PhoneNumberField('Номер телефона', region='RU')

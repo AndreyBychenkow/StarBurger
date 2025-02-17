@@ -70,6 +70,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'image',
                 'get_image_preview',
                 'price',
+                'comment',
             ]
         }),
         ('Подробно', {
@@ -147,7 +148,8 @@ class OrderAdmin(admin.ModelAdmin):
         'phonenumber',
         'address',
         'formatted_date',
-        'status'
+        'status',
+        'comment'
     ]
     search_fields = [
         'firstname',
