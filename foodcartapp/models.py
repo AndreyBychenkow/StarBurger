@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
-
+from django.db.models import Count
+from django.db.models import Sum, F
 from phonenumber_field.modelfields import PhoneNumberField
 
 from django.core.exceptions import ValidationError
@@ -41,6 +42,25 @@ class Order(models.Model):
         db_index=True
     )
 
+    restaurant = models.ForeignKey(
+        'Restaurant',
+        verbose_name='Исполняющий ресторан',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='orders'
+    )
+
+    def get_available_restaurants(self):
+        return Restaurant.objects.filter(
+            menu_items__product__in=self.items.values('product'),
+            menu_items__availability=True
+        ).annotate(
+            total_products=Count('menu_items__product', distinct=True)
+        ).filter(
+            total_products=self.items.count()
+        ).distinct()
+
     comment = models.TextField(
         'Комментарий',
         blank=True,
@@ -54,17 +74,27 @@ class Order(models.Model):
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     called_at = models.DateTimeField('Дата звонка', null=True, blank=True)
     delivered_at = models.DateTimeField('Дата доставки', null=True, blank=True)
-    total_price = models.DecimalField(
-        verbose_name='итоговая цена',
-        max_digits=10,
-        decimal_places=2,
-        validators=[validate_positive],
-        default=0.01,
-    )
+
+    def update_total_price(self):
+        self.total_price = self.items.aggregate(
+            total=Sum(F('quantity') * F('price'))
+        )['total'] or 0
+        self.save()
 
     def save(self, *args, **kwargs):
-        if self.total_price < 0:
-            raise ValueError('Итоговая цена не может быть отрицательной.')
+
+        if self.pk:
+            try:
+                old_order = Order.objects.get(pk=self.pk)
+                old_restaurant = old_order.restaurant
+            except Order.DoesNotExist:
+                old_restaurant = None
+        else:
+            old_restaurant = None
+
+        if self.restaurant != old_restaurant and self.restaurant is not None:
+            self.status = 'restaurant'
+
         super().save(*args, **kwargs)
 
     class Meta:
@@ -105,9 +135,15 @@ class OrderItem(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        if self.fixed_price == 0:
-            self.fixed_price = self.product.price
+        if not self.price:
+            self.price = self.product.price
         super().save(*args, **kwargs)
+        self.order.update_total_price()
+
+    def delete(self, *args, **kwargs):
+        order = self.order
+        super().delete(*args, **kwargs)
+        order.update_total_price()
 
     class Meta:
         verbose_name = 'элемент заказа'

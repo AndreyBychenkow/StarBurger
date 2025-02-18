@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django import forms
 from django.shortcuts import redirect, render
 
@@ -10,11 +12,22 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import views as auth_views
 from django.http import JsonResponse
 
-from foodcartapp.models import Product, Restaurant, Order, \
-    OrderItem
-
+from foodcartapp.models import Product, Restaurant, Order, OrderItem
 from django.db.models import Sum, F
+
 from django.db import transaction
+from django.db.models.signals import post_save, post_delete
+
+from django.dispatch import receiver
+
+
+@receiver([post_save, post_delete], sender=OrderItem)
+def update_order_total(sender, instance, **kwargs):
+    order = instance.order
+    total = order.items.aggregate(total=Sum(F('quantity') * F('price')))[
+                'total'] or 0
+    order.total_price = total
+    order.save()
 
 
 class Login(forms.Form):
@@ -44,26 +57,16 @@ class LoginView(View):
 
     def post(self, request):
         form = Login(request.POST)
-
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
-                if user.is_staff:  # FIXME replace with specific permission
+                if user.is_staff:
                     return redirect("restaurateur:RestaurantView")
                 return redirect("start_page")
-
-        return render(
-            request,
-            "login.html",
-            context={
-                "form": form,
-                "ivalid": True,
-            },
-        )
+        return render(request, "login.html", context={"form": form, "ivalid": True})
 
 
 class LogoutView(auth_views.LogoutView):
@@ -78,92 +81,70 @@ def is_manager(user):
 def view_products(request):
     restaurants = list(Restaurant.objects.order_by("name"))
     products = list(Product.objects.prefetch_related("menu_items"))
-
-    products_with_restaurant_availability = []
-    for product in products:
-        availability = {
-            item.restaurant_id: item.availability for item in
-            product.menu_items.all()
-        }
-        ordered_availability = [
-            availability.get(restaurant.id, False) for restaurant in restaurants
-        ]
-
-        products_with_restaurant_availability.append((product, ordered_availability))
-
-    return render(
-        request,
-        "products_list.html",
-        {
-            "products_with_restaurant_availability": products_with_restaurant_availability,
-            "restaurants": restaurants,
-        },
-    )
+    products_with_restaurant_availability = [
+        (product,
+         [availability.get(restaurant.id, False) for restaurant in restaurants])
+        for product in products
+        for availability in [{
+            item.restaurant_id: item.availability
+            for item in product.menu_items.all()
+        }]
+    ]
+    return render(request, "products_list.html", {
+        "products_with_restaurant_availability": products_with_restaurant_availability,
+        "restaurants": restaurants,
+    })
 
 
 @user_passes_test(is_manager, login_url="restaurateur:login")
 def view_restaurants(request):
-    return render(
-        request,
-        template_name="restaurants_list.html",
-        context={
-            "restaurants": Restaurant.objects.all(),
-        },
-    )
+    return render(request, "restaurants_list.html", {
+        "restaurants": Restaurant.objects.all(),
+    })
 
 
 @user_passes_test(is_manager, login_url='restaurateur:login')
 def view_orders(request):
-    orders = Order.objects.exclude(status='completed').annotate(
-        custom_total_price=Sum(F('items__quantity') * F('items__product__price'))
-    ).prefetch_related('items__product').all()
-    return render(request, 'manager_orders.html', {'orders': orders})
+    orders = Order.objects.exclude(status='completed').prefetch_related(
+        'items', 'restaurant'
+    ).annotate(
+        total_price_calc=Sum(F('items__quantity') * F('items__price'))
+    )
+
+    context = {
+        'orders': orders,
+        'now': timezone.now()
+    }
+
+    return render(request, 'manager_orders.html', context)
 
 
 def create_order_view(request):
     if request.method == 'POST':
-        firstname = request.POST.get('firstname')
-        lastname = request.POST.get('lastname')
-        phonenumber = request.POST.get('phonenumber')
-        address = request.POST.get('address')
-
-        items = [
-            {'product': Product.objects.get(id=1), 'quantity': 2},
-            {'product': Product.objects.get(id=2), 'quantity': 1}
-        ]
-
         try:
             with transaction.atomic():
-                order = Order(
-                    firstname=firstname,
-                    lastname=lastname,
-                    phonenumber=phonenumber,
-                    address=address
+                order = Order.objects.create(
+                    firstname=request.POST.get('firstname'),
+                    lastname=request.POST.get('lastname'),
+                    phonenumber=request.POST.get('phonenumber'),
+                    address=request.POST.get('address'),
+                    total_price=0
                 )
-                order.save()
 
-                total_price = 0
-
-                for item in items:
-                    product = item['product']
-                    quantity = item['quantity']
-
-                    order_item = OrderItem(
+                for item in request.POST.getlist('items'):
+                    product = Product.objects.get(id=item['product_id'])
+                    OrderItem.objects.create(
                         order=order,
                         product=product,
-                        quantity=quantity,
+                        quantity=item['quantity'],
                         price=product.price
                     )
-                    order_item.save()
-                    total_price += product.price * quantity
 
-                order.total_price = total_price
-                order.save()
-
-            return JsonResponse(
-                {'order_id': order.id, 'total_price': order.total_price})
+                return JsonResponse({
+                    'order_id': order.id,
+                    'total_price': order.total_price
+                })
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-
     return JsonResponse({'error': 'Invalid request method'}, status=400)

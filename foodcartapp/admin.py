@@ -72,6 +72,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'price',
                 'comment',
                 'payment_method',
+                'restaurant',
             ]
         }),
         ('Подробно', {
@@ -152,7 +153,9 @@ class OrderAdmin(admin.ModelAdmin):
         'status',
         'comment',
         'payment_method',
+        'restaurant',
     ]
+    autocomplete_fields = ['restaurant']
     search_fields = [
         'firstname',
         'lastname',
@@ -160,7 +163,7 @@ class OrderAdmin(admin.ModelAdmin):
         'address'
     ]
 
-    list_filter = ['created_at', 'status']
+    list_filter = ['created_at', 'status', 'restaurant']
 
     ordering = ['-created_at']
 
