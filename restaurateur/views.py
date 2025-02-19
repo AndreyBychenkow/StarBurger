@@ -1,5 +1,3 @@
-from django.utils import timezone
-
 from django import forms
 from django.shortcuts import redirect, render
 
@@ -105,18 +103,18 @@ def view_restaurants(request):
 
 @user_passes_test(is_manager, login_url='restaurateur:login')
 def view_orders(request):
+
     orders = Order.objects.exclude(status='completed').prefetch_related(
-        'items', 'restaurant'
+        'items__product', 'restaurant'
     ).annotate(
         total_price_calc=Sum(F('items__quantity') * F('items__price'))
     )
 
-    context = {
-        'orders': orders,
-        'now': timezone.now()
-    }
 
-    return render(request, 'manager_orders.html', context)
+    for order in orders:
+        order.restaurant_distances = order.get_restaurants_with_distances()
+
+    return render(request, 'manager_orders.html', {'orders': orders})
 
 
 def create_order_view(request):

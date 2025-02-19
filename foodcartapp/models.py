@@ -1,10 +1,13 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+
 from django.db.models import Count
 from django.db.models import Sum, F
-from phonenumber_field.modelfields import PhoneNumberField
 
+from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
+
+from foodcartapp.utils import calculate_distance, get_coordinates, logger
 
 
 def validate_positive(value):
@@ -80,6 +83,29 @@ class Order(models.Model):
             total=Sum(F('quantity') * F('price'))
         )['total'] or 0
         self.save()
+
+    def get_restaurants_with_distances(self):
+        try:
+            delivery_point = get_coordinates(self.address)
+            if not delivery_point:
+                return []
+
+            restaurants = []
+            for restaurant in self.get_available_restaurants():
+                restaurant_point = get_coordinates(restaurant.address)
+                dist = calculate_distance(delivery_point, restaurant_point)
+                if dist is not None:
+                    restaurants.append({
+                        'restaurant': restaurant,
+                        'distance': dist
+                    })
+
+            return sorted(restaurants, key=lambda x: x['distance'])
+
+        except Exception as e:
+            logger.error(f"Error calculating distances: {str(e)}")
+            return []
+
 
     def save(self, *args, **kwargs):
 

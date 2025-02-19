@@ -2,11 +2,13 @@ import os
 
 import dj_database_url
 
-from environs import Env
 
+from environs import Env
 
 env = Env()
 env.read_env()
+
+YANDEX_GEOCODER_API_KEY = env('YANDEX_GEOCODER_API_KEY')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -120,7 +122,9 @@ INTERNAL_IPS = [
 ]
 
 
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
     os.path.join(BASE_DIR, "bundles"),
 ]
+
