@@ -7,7 +7,7 @@ from django.db.models import Sum, F
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 
-from foodcartapp.utils import calculate_distance, get_coordinates, logger
+from geocoder.models import AddressCoordinates
 
 
 def validate_positive(value):
@@ -85,6 +85,7 @@ class Order(models.Model):
         self.save()
 
     def get_restaurants_with_distances(self):
+        from foodcartapp.utils import get_coordinates, calculate_distance, logger
         try:
             delivery_point = get_coordinates(self.address)
             if not delivery_point:
@@ -108,19 +109,10 @@ class Order(models.Model):
 
 
     def save(self, *args, **kwargs):
-
         if self.pk:
-            try:
-                old_order = Order.objects.get(pk=self.pk)
-                old_restaurant = old_order.restaurant
-            except Order.DoesNotExist:
-                old_restaurant = None
-        else:
-            old_restaurant = None
-
-        if self.restaurant != old_restaurant and self.restaurant is not None:
-            self.status = 'restaurant'
-
+            old_order = Order.objects.get(pk=self.pk)
+            if old_order.address != self.address:
+                AddressCoordinates.objects.filter(address=old_order.address).delete()
         super().save(*args, **kwargs)
 
     class Meta:
@@ -195,6 +187,13 @@ class Restaurant(models.Model):
         blank=True,
     )
 
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_rest = Restaurant.objects.get(pk=self.pk)
+            if old_rest.address != self.address:
+                AddressCoordinates.objects.filter(address=old_rest.address).delete()
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'ресторан'
         verbose_name_plural = 'рестораны'
@@ -262,6 +261,28 @@ class Product(models.Model):
     is_available = models.BooleanField(
         'Доступен для заказа',
         default=True,
+        db_index=True
+    )
+    comment = models.TextField(
+        null=True,
+        blank=True
+    )
+    restaurant = models.ForeignKey(
+        'Restaurant',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    PAYMENT_METHOD_CHOICES = [
+        ('electronic', 'Электронно'),
+        ('cash', 'Наличные'),
+    ]
+    payment_method = models.CharField(
+        'Способ оплаты',
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        default='cash',
         db_index=True
     )
 

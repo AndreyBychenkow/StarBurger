@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'restaurateur.apps.RestaurateurConfig',
     'phonenumber_field',
     'rest_framework',
+    'geocoder.apps.GeocoderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
