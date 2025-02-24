@@ -138,16 +138,16 @@ class OrderItem(models.Model):
         related_name="order_items",
         verbose_name="товар",
     )
-    quantity = models.PositiveIntegerField("количество", default=1)
-    fixed_price = models.DecimalField(
-        verbose_name="фиксированная цена", max_digits=10, decimal_places=2, default=0.0
+    quantity = models.IntegerField(
+        "количество", default=1, validators=[MinValueValidator(1)]
     )
+
+    fixed_price = models.DecimalField(
+        verbose_name="фиксированная цена", max_digits=10, decimal_places=2
+    )
+
     price = models.DecimalField(
-        "цена",
-        max_digits=8,
-        decimal_places=2,
-        validators=[MinValueValidator(0)],
-        default=0.00,
+        "цена", max_digits=8, decimal_places=2, validators=[MinValueValidator(0)]
     )
 
     def save(self, *args, **kwargs):
