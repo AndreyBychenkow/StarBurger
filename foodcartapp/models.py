@@ -13,76 +13,71 @@ from foodcartapp.utils import get_coordinates, calculate_distance, logger
 
 def validate_positive(value):
     if value <= 0:
-        raise ValidationError('Итоговая цена не может быть отрицательной.')
+        raise ValidationError("Итоговая цена не может быть отрицательной.")
 
 
 class Order(models.Model):
     STATUS_CHOICES = [
-        ('new', 'Новый'),
-        ('processing', 'В обработке'),
-        ('restaurant', 'Передан в ресторан'),
-        ('delivery', 'У курьера'),
-        ('completed', 'Завершён'),
+        ("new", "Новый"),
+        ("processing", "В обработке"),
+        ("restaurant", "Передан в ресторан"),
+        ("delivery", "У курьера"),
+        ("completed", "Завершён"),
     ]
 
     status = models.CharField(
-        'Статус',
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default='new',
-        db_index=True
+        "Статус", max_length=20, choices=STATUS_CHOICES, default="new", db_index=True
     )
 
     PAYMENT_METHOD_CHOICES = [
-        ('electronic', 'Электронно'),
-        ('cash', 'Наличные'),
+        ("electronic", "Электронно"),
+        ("cash", "Наличные"),
     ]
 
     payment_method = models.CharField(
-        'Способ оплаты',
+        "Способ оплаты",
         max_length=20,
         choices=PAYMENT_METHOD_CHOICES,
-        default='cash',
-        db_index=True
+        default="cash",
+        db_index=True,
     )
 
     restaurant = models.ForeignKey(
-        'Restaurant',
-        verbose_name='Исполняющий ресторан',
+        "Restaurant",
+        verbose_name="Исполняющий ресторан",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='orders'
+        related_name="orders",
     )
 
     def get_available_restaurants(self):
-        return Restaurant.objects.filter(
-            menu_items__product__in=self.items.values('product'),
-            menu_items__availability=True
-        ).annotate(
-            total_products=Count('menu_items__product', distinct=True)
-        ).filter(
-            total_products=self.items.count()
-        ).distinct()
+        return (
+            Restaurant.objects.filter(
+                menu_items__product__in=self.items.values("product"),
+                menu_items__availability=True,
+            )
+            .annotate(total_products=Count("menu_items__product", distinct=True))
+            .filter(total_products=self.items.count())
+            .distinct()
+        )
 
     comment = models.TextField(
-        'Комментарий',
-        blank=True,
-        help_text='Дополнительная информация о заказе'
+        "Комментарий", blank=True, help_text="Дополнительная информация о заказе"
     )
 
-    firstname = models.CharField('Имя', max_length=50)
-    lastname = models.CharField('Фамилия', max_length=50)
-    phonenumber = PhoneNumberField('Номер телефона', region='RU')
-    address = models.CharField('Адрес', max_length=200)
-    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
-    called_at = models.DateTimeField('Дата звонка', null=True, blank=True)
-    delivered_at = models.DateTimeField('Дата доставки', null=True, blank=True)
+    firstname = models.CharField("Имя", max_length=50)
+    lastname = models.CharField("Фамилия", max_length=50)
+    phonenumber = PhoneNumberField("Номер телефона", region="RU")
+    address = models.CharField("Адрес", max_length=200)
+    created_at = models.DateTimeField("Дата создания", auto_now_add=True)
+    called_at = models.DateTimeField("Дата звонка", null=True, blank=True)
+    delivered_at = models.DateTimeField("Дата доставки", null=True, blank=True)
 
     def update_total_price(self):
-        self.total_price = self.items.aggregate(
-            total=Sum(F('quantity') * F('price'))
-        )['total'] or 0
+        self.total_price = (
+            self.items.aggregate(total=Sum(F("quantity") * F("price")))["total"] or 0
+        )
         self.save()
 
     def get_restaurants_with_distances(self):
@@ -91,23 +86,31 @@ class Order(models.Model):
             delivery_point = get_coordinates(self.address)
             if not delivery_point:
                 return []
-
             restaurants = []
             for restaurant in self.get_available_restaurants():
-                restaurant_point = get_coordinates(restaurant.address)
-                dist = calculate_distance(delivery_point, restaurant_point)
-                if dist is not None:
-                    restaurants.append({
-                        'restaurant': restaurant,
-                        'distance': dist
-                    })
-
-            return sorted(restaurants, key=lambda x: x['distance'])
-
+                try:
+                    restaurant_point = get_coordinates(restaurant.address)
+                    if restaurant_point is None:
+                        logger.warning(
+                            f"Неверные координаты ресторана: {restaurant.name}"
+                        )
+                        continue
+                    dist = calculate_distance(delivery_point, restaurant_point)
+                    if dist is not None:
+                        restaurants.append({"restaurant": restaurant, "distance": dist})
+                    else:
+                        logger.warning(
+                            f"Не удалось рассчитать расстояние до ресторана: {restaurant.name}"
+                        )
+                except Exception as e:
+                    logger.error(
+                        f"Ошибка обработки ресторана {restaurant.name}: {str(e)}"
+                    )
+                    continue
+            return sorted(restaurants, key=lambda x: x["distance"])
         except Exception as e:
-            logger.error(f"Error calculating distances: {str(e)}")
+            logger.error(f"Ошибка расчета расстояний: {str(e)}")
             return []
-
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -117,9 +120,9 @@ class Order(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'заказ'
-        verbose_name_plural = 'заказы'
-        ordering = ['-created_at']
+        verbose_name = "заказ"
+        verbose_name_plural = "заказы"
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f'Заказ №{self.id} от {self.created_at.strftime("%d-%m-%Y %H:%M")}'
@@ -127,26 +130,20 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(
-        Order,
-        on_delete=models.CASCADE,
-        related_name='items',
-        verbose_name='заказ'
+        Order, on_delete=models.CASCADE, related_name="items", verbose_name="заказ"
     )
     product = models.ForeignKey(
-        'Product',
+        "Product",
         on_delete=models.CASCADE,
-        related_name='order_items',
-        verbose_name='товар'
+        related_name="order_items",
+        verbose_name="товар",
     )
-    quantity = models.PositiveIntegerField('количество', default=1)
+    quantity = models.PositiveIntegerField("количество", default=1)
     fixed_price = models.DecimalField(
-        verbose_name='фиксированная цена',
-        max_digits=10,
-        decimal_places=2,
-        default=0.0
+        verbose_name="фиксированная цена", max_digits=10, decimal_places=2, default=0.0
     )
     price = models.DecimalField(
-        'цена',
+        "цена",
         max_digits=8,
         decimal_places=2,
         validators=[MinValueValidator(0)],
@@ -165,25 +162,22 @@ class OrderItem(models.Model):
         order.update_total_price()
 
     class Meta:
-        verbose_name = 'элемент заказа'
-        verbose_name_plural = 'элементы заказа'
+        verbose_name = "элемент заказа"
+        verbose_name_plural = "элементы заказа"
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
 
 
 class Restaurant(models.Model):
-    name = models.CharField(
-        'название',
-        max_length=50
-    )
+    name = models.CharField("название", max_length=50)
     address = models.CharField(
-        'адрес',
+        "адрес",
         max_length=100,
         blank=True,
     )
     contact_phone = models.CharField(
-        'контактный телефон',
+        "контактный телефон",
         max_length=50,
         blank=True,
     )
@@ -196,22 +190,19 @@ class Restaurant(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'ресторан'
-        verbose_name_plural = 'рестораны'
+        verbose_name = "ресторан"
+        verbose_name_plural = "рестораны"
 
     def __str__(self):
         return self.name
 
 
 class ProductCategory(models.Model):
-    name = models.CharField(
-        'название',
-        max_length=50
-    )
+    name = models.CharField("название", max_length=50)
 
     class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
+        verbose_name = "категория"
+        verbose_name_plural = "категории"
 
     def __str__(self):
         return self.name
@@ -219,79 +210,61 @@ class ProductCategory(models.Model):
 
 class ProductQuerySet(models.QuerySet):
     def available(self):
-        products = (
-            RestaurantMenuItem.objects
-            .filter(availability=True)
-            .values_list('product')
+        products = RestaurantMenuItem.objects.filter(availability=True).values_list(
+            "product"
         )
         return self.filter(pk__in=products)
 
 
 class Product(models.Model):
-    name = models.CharField(
-        'название',
-        max_length=50
-    )
+    name = models.CharField("название", max_length=50)
     category = models.ForeignKey(
         ProductCategory,
-        verbose_name='категория',
-        related_name='products',
+        verbose_name="категория",
+        related_name="products",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
     )
     price = models.DecimalField(
-        'цена',
-        max_digits=8,
-        decimal_places=2,
-        validators=[MinValueValidator(0)]
+        "цена", max_digits=8, decimal_places=2, validators=[MinValueValidator(0)]
     )
-    image = models.ImageField(
-        'картинка'
-    )
+    image = models.ImageField("картинка")
     special_status = models.BooleanField(
-        'спец.предложение',
+        "спец.предложение",
         default=False,
         db_index=True,
     )
     description = models.TextField(
-        'описание',
+        "описание",
         max_length=200,
         blank=True,
     )
     is_available = models.BooleanField(
-        'Доступен для заказа',
-        default=True,
-        db_index=True
+        "Доступен для заказа", default=True, db_index=True
     )
-    comment = models.TextField(
-        null=True,
-        blank=True
-    )
+    comment = models.TextField(null=True, blank=True)
     restaurant = models.ForeignKey(
-        'Restaurant',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
+        "Restaurant", on_delete=models.CASCADE, null=True, blank=True
     )
 
     PAYMENT_METHOD_CHOICES = [
-        ('electronic', 'Электронно'),
-        ('cash', 'Наличные'),
+        ("electronic", "Электронно"),
+        ("cash", "Наличные"),
     ]
     payment_method = models.CharField(
-        'Способ оплаты',
+        "Способ оплаты",
         max_length=20,
         choices=PAYMENT_METHOD_CHOICES,
-        default='cash',
-        db_index=True
+        default="cash",
+        db_index=True,
     )
 
     objects = ProductQuerySet.as_manager()
 
     class Meta:
-        verbose_name = 'товар'
-        verbose_name_plural = 'товары'
+        verbose_name = "товар"
+        verbose_name_plural = "товары"
 
     def __str__(self):
         return self.name
@@ -300,28 +273,22 @@ class Product(models.Model):
 class RestaurantMenuItem(models.Model):
     restaurant = models.ForeignKey(
         Restaurant,
-        related_name='menu_items',
+        related_name="menu_items",
         verbose_name="ресторан",
         on_delete=models.CASCADE,
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        related_name='menu_items',
-        verbose_name='продукт',
+        related_name="menu_items",
+        verbose_name="продукт",
     )
-    availability = models.BooleanField(
-        'в продаже',
-        default=True,
-        db_index=True
-    )
+    availability = models.BooleanField("в продаже", default=True, db_index=True)
 
     class Meta:
-        verbose_name = 'пункт меню ресторана'
-        verbose_name_plural = 'пункты меню ресторана'
-        unique_together = [
-            ['restaurant', 'product']
-        ]
+        verbose_name = "пункт меню ресторана"
+        verbose_name_plural = "пункты меню ресторана"
+        unique_together = [["restaurant", "product"]]
 
     def __str__(self):
         return f"{self.restaurant.name} - {self.product.name}"
