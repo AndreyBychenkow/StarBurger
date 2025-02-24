@@ -146,9 +146,6 @@ class OrderItem(models.Model):
         verbose_name="фиксированная цена", max_digits=10, decimal_places=2
     )
 
-    price = models.DecimalField(
-        "цена", max_digits=8, decimal_places=2, validators=[MinValueValidator(0)]
-    )
 
     def save(self, *args, **kwargs):
         if not self.price:
