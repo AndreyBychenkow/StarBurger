@@ -44,7 +44,7 @@
       <td class="client-cell">{{ order.firstname }} {{ order.lastname }}</td>
       <td class="phone-cell">{{ order.phonenumber }}</td>
       <td class="address-cell">{{ order.address }}</td>
-      <td class="order-price">{{ order.total_price_calc|default:"0.00" }} ₽</td>
+      <td class="order-price">{{ order.total_price }} ₽</td>
       <td class="order-comment">
         {% if order.comment %}
         <details>

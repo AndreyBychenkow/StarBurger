@@ -1,13 +1,12 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
-from django.db.models import Count
-from django.db.models import Sum, F
-
+from django.db.models import Count, Sum, F
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.exceptions import ValidationError
 
+from django.core.exceptions import ValidationError
 from geocoder.models import AddressCoordinates
+
 from foodcartapp.utils import get_coordinates, calculate_distance, logger
 
 
@@ -51,17 +50,6 @@ class Order(models.Model):
         related_name="orders",
     )
 
-    def get_available_restaurants(self):
-        return (
-            Restaurant.objects.filter(
-                menu_items__product__in=self.items.values("product"),
-                menu_items__availability=True,
-            )
-            .annotate(total_products=Count("menu_items__product", distinct=True))
-            .filter(total_products=self.items.count())
-            .distinct()
-        )
-
     comment = models.TextField(
         "Комментарий", blank=True, help_text="Дополнительная информация о заказе"
     )
@@ -74,14 +62,24 @@ class Order(models.Model):
     called_at = models.DateTimeField("Дата звонка", null=True, blank=True)
     delivered_at = models.DateTimeField("Дата доставки", null=True, blank=True)
 
-    def update_total_price(self):
-        self.total_price = (
-            self.items.aggregate(total=Sum(F("quantity") * F("price")))["total"] or 0
+    def total_price(self):
+        return (
+            self.items.aggregate(total=Sum(F("quantity") * F("fixed_price")))["total"]
+            or 0
         )
-        self.save()
+
+    def get_available_restaurants(self):
+        return (
+            Restaurant.objects.filter(
+                menu_items__product__in=self.items.values("product"),
+                menu_items__availability=True,
+            )
+            .annotate(total_products=Count("menu_items__product", distinct=True))
+            .filter(total_products=self.items.count())
+            .distinct()
+        )
 
     def get_restaurants_with_distances(self):
-
         try:
             delivery_point = get_coordinates(self.address)
             if not delivery_point:
@@ -113,10 +111,14 @@ class Order(models.Model):
             return []
 
     def save(self, *args, **kwargs):
+
         if self.pk:
             old_order = Order.objects.get(pk=self.pk)
-            if old_order.address != self.address:
-                AddressCoordinates.objects.filter(address=old_order.address).delete()
+            old_restaurant = old_order.restaurant
+        else:
+            old_restaurant = None
+        if self.restaurant != old_restaurant and self.restaurant is not None:
+            self.status = "restaurant"
         super().save(*args, **kwargs)
 
     class Meta:
@@ -143,20 +145,12 @@ class OrderItem(models.Model):
     )
 
     fixed_price = models.DecimalField(
-        verbose_name="фиксированная цена", max_digits=10, decimal_places=2
+        verbose_name="фиксированная цена",
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
     )
-
-
-    def save(self, *args, **kwargs):
-        if not self.price:
-            self.price = self.product.price
-        super().save(*args, **kwargs)
-        self.order.update_total_price()
-
-    def delete(self, *args, **kwargs):
-        order = self.order
-        super().delete(*args, **kwargs)
-        order.update_total_price()
 
     class Meta:
         verbose_name = "элемент заказа"
