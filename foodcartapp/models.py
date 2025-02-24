@@ -8,6 +8,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 
 from geocoder.models import AddressCoordinates
+from foodcartapp.utils import get_coordinates, calculate_distance, logger
 
 
 def validate_positive(value):
@@ -85,7 +86,7 @@ class Order(models.Model):
         self.save()
 
     def get_restaurants_with_distances(self):
-        from foodcartapp.utils import get_coordinates, calculate_distance, logger
+
         try:
             delivery_point = get_coordinates(self.address)
             if not delivery_point:
