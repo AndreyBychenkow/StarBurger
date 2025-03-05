@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from geocoder.models import AddressCoordinates
 
-from foodcartapp.utils import get_coordinates, calculate_distance, logger
+from foodcartapp.utils import calculate_distance, logger
 
 
 def validate_positive(value):
@@ -54,6 +54,9 @@ class Order(models.Model):
         "Комментарий", blank=True, help_text="Дополнительная информация о заказе"
     )
 
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+
     firstname = models.CharField("Имя", max_length=50)
     lastname = models.CharField("Фамилия", max_length=50)
     phonenumber = PhoneNumberField("Номер телефона", region="RU")
@@ -80,46 +83,34 @@ class Order(models.Model):
         )
 
     def get_restaurants_with_distances(self):
-        try:
-            delivery_point = get_coordinates(self.address)
-            if not delivery_point:
-                return []
-            restaurants = []
-            for restaurant in self.get_available_restaurants():
-                try:
-                    restaurant_point = get_coordinates(restaurant.address)
-                    if restaurant_point is None:
-                        logger.warning(
-                            f"Неверные координаты ресторана: {restaurant.name}"
-                        )
-                        continue
-                    dist = calculate_distance(delivery_point, restaurant_point)
-                    if dist is not None:
-                        restaurants.append({"restaurant": restaurant, "distance": dist})
-                    else:
-                        logger.warning(
-                            f"Не удалось рассчитать расстояние до ресторана: {restaurant.name}"
-                        )
-                except Exception as e:
-                    logger.error(
-                        f"Ошибка обработки ресторана {restaurant.name}: {str(e)}"
-                    )
-                    continue
-            return sorted(restaurants, key=lambda x: x["distance"])
-        except Exception as e:
-            logger.error(f"Ошибка расчета расстояний: {str(e)}")
+        if not self.latitude or not self.longitude:
             return []
+        restaurants = []
+        for restaurant in self.get_available_restaurants():
+            if not restaurant.latitude or not restaurant.longitude:
+                continue
+            try:
+                dist = calculate_distance(
+                    (self.latitude, self.longitude),
+                    (restaurant.latitude, restaurant.longitude),
+                )
+                restaurants.append({"restaurant": restaurant, "distance": dist})
+            except Exception as e:
+                logger.error(f"Ошибка расчета расстояния: {str(e)}")
+        return sorted(restaurants, key=lambda x: x["distance"])
 
     def save(self, *args, **kwargs):
 
-        if self.pk:
-            old_order = Order.objects.get(pk=self.pk)
-            old_restaurant = old_order.restaurant
-        else:
-            old_restaurant = None
-        if self.restaurant != old_restaurant and self.restaurant is not None:
-            self.status = "restaurant"
+        if self.address and (not self.pk or self.address != self._get_old_address()):
+            coords, _ = AddressCoordinates.objects.get_or_create(address=self.address)
+            self.latitude = coords.latitude
+            self.longitude = coords.longitude
         super().save(*args, **kwargs)
+
+    def _get_old_address(self):
+        if self.pk:
+            return Order.objects.get(pk=self.pk).address
+        return None
 
     class Meta:
         verbose_name = "заказ"
@@ -148,8 +139,9 @@ class OrderItem(models.Model):
         verbose_name="фиксированная цена",
         max_digits=10,
         decimal_places=2,
-        null=True,
-        blank=True,
+        validators=[MinValueValidator(0)],
+        null=False,
+        blank=False,
     )
 
     class Meta:
@@ -173,11 +165,18 @@ class Restaurant(models.Model):
         blank=True,
     )
 
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+
     def save(self, *args, **kwargs):
-        if self.pk:
-            old_rest = Restaurant.objects.get(pk=self.pk)
-            if old_rest.address != self.address:
-                AddressCoordinates.objects.filter(address=old_rest.address).delete()
+        from geocoder.models import AddressCoordinates
+
+        if self.address and (
+            not self.pk or self.address != Restaurant.objects.get(pk=self.pk).address
+        ):
+            coords, _ = AddressCoordinates.objects.get_or_create(address=self.address)
+            self.latitude = coords.latitude
+            self.longitude = coords.longitude
         super().save(*args, **kwargs)
 
     class Meta:
