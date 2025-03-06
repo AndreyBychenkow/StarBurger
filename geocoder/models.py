@@ -1,7 +1,11 @@
 import requests
+
 from django.conf import settings
 from django.db import models
+
 from django.utils import timezone
+from datetime import timedelta
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -14,6 +18,9 @@ class AddressCoordinates(models.Model):
     updated_at = models.DateTimeField(
         "Дата/время обновления", auto_now=True, db_index=True
     )
+
+    def is_fresh(self):
+        return timezone.now() - self.updated_at < timedelta(days=30)
 
     CACHE_TTL = timezone.timedelta(days=30)
 
