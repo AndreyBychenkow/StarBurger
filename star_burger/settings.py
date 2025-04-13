@@ -1,8 +1,7 @@
 import os
-
 import dj_database_url
 
-
+from django.http import Http404
 from environs import Env
 
 env = Env()
@@ -16,7 +15,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG', False)
+DEBUG = env.bool('DEBUG', True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'localhost'])
 
@@ -35,6 +34,15 @@ INSTALLED_APPS = [
     'debug_toolbar',
 ]
 
+ROLLBAR = {
+    'access_token': env('TOKEN_ROLLBAR_PROD'),
+    'environment': 'development',
+    'root': BASE_DIR,
+    'exception_level_filters': [
+        (Http404, 'ignored'),
+    ],
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -44,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'star_burger.urls'
