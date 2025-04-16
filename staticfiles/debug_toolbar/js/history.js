@@ -14,7 +14,11 @@ function difference(setA, setB) {
  * Create an array of dataset properties from a NodeList.
  */
 function pluckData(nodes, key) {
-    return [...nodes].map((obj) => obj.dataset[key]);
+    const data = [];
+    nodes.forEach(function (obj) {
+        data.push(obj.dataset[key]);
+    });
+    return data;
 }
 
 function refreshHistory() {
@@ -25,18 +29,18 @@ function refreshHistory() {
     );
 
     ajaxForm(formTarget)
-        .then((data) => {
+        .then(function (data) {
             // Remove existing rows first then re-populate with new data
-            for (const node of container.querySelectorAll(
-                "tr[data-store-id]"
-            )) {
-                node.remove();
-            }
-            for (const request of data.requests) {
+            container
+                .querySelectorAll("tr[data-store-id]")
+                .forEach(function (node) {
+                    node.remove();
+                });
+            data.requests.forEach(function (request) {
                 container.innerHTML = request.content + container.innerHTML;
-            }
+            });
         })
-        .then(() => {
+        .then(function () {
             const allIds = new Set(
                 pluckData(
                     container.querySelectorAll("tr[data-store-id]"),
@@ -51,26 +55,26 @@ function refreshHistory() {
                 lastRequestId,
             };
         })
-        .then((refreshInfo) => {
-            for (const newId of refreshInfo.newIds) {
+        .then(function (refreshInfo) {
+            refreshInfo.newIds.forEach(function (newId) {
                 const row = container.querySelector(
                     `tr[data-store-id="${newId}"]`
                 );
                 row.classList.add("flash-new");
-            }
+            });
             setTimeout(() => {
-                for (const row of container.querySelectorAll(
-                    "tr[data-store-id]"
-                )) {
-                    row.classList.remove("flash-new");
-                }
+                container
+                    .querySelectorAll("tr[data-store-id]")
+                    .forEach((row) => {
+                        row.classList.remove("flash-new");
+                    });
             }, 2000);
         });
 }
 
 function switchHistory(newStoreId) {
     const formTarget = djDebug.querySelector(
-        `.switchHistory[data-store-id='${newStoreId}']`
+        ".switchHistory[data-store-id='" + newStoreId + "']"
     );
     const tbody = formTarget.closest("tbody");
 
@@ -80,11 +84,11 @@ function switchHistory(newStoreId) {
     }
     formTarget.closest("tr").classList.add("djdt-highlighted");
 
-    ajaxForm(formTarget).then((data) => {
+    ajaxForm(formTarget).then(function (data) {
         if (Object.keys(data).length === 0) {
             const container = document.getElementById("djdtHistoryRequests");
             container.querySelector(
-                `button[data-store-id="${newStoreId}"]`
+                'button[data-store-id="' + newStoreId + '"]'
             ).innerHTML = "Switch [EXPIRED]";
         }
         replaceToolbarState(newStoreId, data);
@@ -96,7 +100,7 @@ $$.on(djDebug, "click", ".switchHistory", function (event) {
     switchHistory(this.dataset.storeId);
 });
 
-$$.on(djDebug, "click", ".refreshHistory", (event) => {
+$$.on(djDebug, "click", ".refreshHistory", function (event) {
     event.preventDefault();
     refreshHistory();
 });
