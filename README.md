@@ -4,7 +4,6 @@
 
 ![скриншот сайта](https://dvmn.org/filer/canonical/1594651635/686/)
 
-
 Сеть Star Burger объединяет несколько ресторанов, действующих под единой франшизой. У всех ресторанов одинаковое меню и одинаковые цены. Просто выберите блюдо из меню на сайте и укажите место доставки. Мы сами найдём ближайший к вам ресторан, всё приготовим и привезём.
 
 На сайте есть три независимых интерфейса. Первый — это публичная часть, где можно выбрать блюда из меню, и быстро оформить заказ без регистрации и SMS.
@@ -20,11 +19,13 @@
 ### Как собрать бэкенд
 
 Скачайте код:
+
 ```sh
 git clone https://github.com/devmanorg/star-burger.git
 ```
 
 Перейдите в каталог проекта:
+
 ```sh
 cd star-burger
 ```
@@ -32,31 +33,41 @@ cd star-burger
 [Установите Python](https://www.python.org/), если этого ещё не сделали.
 
 Проверьте, что `python` установлен и корректно настроен. Запустите его в командной строке:
+
 ```sh
 python --version
 ```
+
 **Важно!** Версия Python должна быть не ниже 3.6.
 
-Возможно, вместо команды `python` здесь и в остальных инструкциях этого README придётся использовать `python3`. Зависит это от операционной системы и от того, установлен ли у вас Python старой второй версии. 
+Возможно, вместо команды `python` здесь и в остальных инструкциях этого README придётся использовать `python3`. Зависит это от операционной системы и от того, установлен ли у вас Python старой второй версии.
 
 В каталоге проекта создайте виртуальное окружение:
+
 ```sh
 python -m venv venv
 ```
+
 Активируйте его. На разных операционных системах это делается разными командами:
 
 - Windows: `.\venv\Scripts\activate`
 - MacOS/Linux: `source venv/bin/activate`
 
-
 Установите зависимости в виртуальное окружение:
+
 ```sh
 pip install -r requirements.txt
 ```
 
 Определите переменную окружения `SECRET_KEY`. Создать файл `.env` в каталоге `star_burger/` и положите туда такой код:
+
 ```sh
-SECRET_KEY=django-insecure-0if40nf4nf93n4
+SECRET_KEY="django-insecure-0if40nf4nf93n4"
+DATABASE_URL=postgres://starburger_user:0704@localhost:5432/starburger_dev
+YANDEX_GEOCODER_API_KEY="Ключ Яндекс JavaScript API и HTTP Геокодера"
+ALLOWED_HOSTS = .localhost,127.0.0.1,[::1]
+DEBUG = True
+TOKEN_ROLLBAR_DEV="Токен системы мониторинга Rollbar"
 ```
 
 Создайте файл базы данных SQLite и отмигрируйте её следующей командой:
@@ -133,7 +144,6 @@ Parcel будет следить за файлами в каталоге `bundle
 
 **Сбросьте кэш браузера <kbd>Ctrl-F5</kbd>.** Браузер при любой возможности старается кэшировать файлы статики: CSS, картинки и js-код. Порой это приводит к странному поведению сайта, когда код уже давно изменился, но браузер этого не замечает и продолжает использовать старую закэшированную версию. В норме Parcel решает эту проблему самостоятельно. Он следит за пересборкой фронтенда и предупреждает JS-код в браузере о необходимости подтянуть свежий код. Но если вдруг что-то у вас идёт не так, то начните ремонт со сброса браузерного кэша, жмите <kbd>Ctrl-F5</kbd>.
 
-
 ## Как запустить prod-версию сайта
 
 Собрать фронтенд:
@@ -147,6 +157,86 @@ Parcel будет следить за файлами в каталоге `bundle
 - `DEBUG` — дебаг-режим. Поставьте `False`.
 - `SECRET_KEY` — секретный ключ проекта. Он отвечает за шифрование на сайте. Например, им зашифрованы все пароли на вашем сайте.
 - `ALLOWED_HOSTS` — [см. документацию Django](https://docs.djangoproject.com/en/3.1/ref/settings/#allowed-hosts)
+- `TOKEN_ROLLBAR_PROD`= "Токен системы мониторинга Rollbar"(для`production`)
+- `DATABASE_URL`=postgres://starburger_user:0704@localhost:5432/starburger_dev
+- `YANDEX_GEOCODER_API_KEY`="Ключ Яндекс JavaScript API и HTTP Геокодера"
+
+Для автоматизированного обновления прод-версии, можно использовать следующий bash-скрипт.
+Создайте файл deploy_star_burger.sh в удобном месте со следующим содержанием:
+
+```
+##!/bin/bash
+
+# Strict mode
+set -euo pipefail
+
+# Variables
+PROJECT_DIR="/opt/StarBurger"
+VENV_PATH="/root/venv/bin/activate"
+SERVICE_NAME="StarBurger.service"
+
+# Load environment variables if .env exists
+if [ -f "$PROJECT_DIR/.env" ]; then
+    export $(grep -v '^#' $PROJECT_DIR/.env | xargs)
+fi
+
+echo -e "${GREEN}>>> Начинаем деплой StarBurger${NC}"
+
+# 1. Обновляем код из Git
+echo -e "${GREEN}>>> Получаем изменения из Git${NC}"
+cd $PROJECT_DIR
+git fetch
+git reset --hard origin/master
+
+# 2. Активируем virtualenv
+echo -e "${GREEN}>>> Активируем virtualenv${NC}"
+source $VENV_PATH
+
+# 3. Устанавливаем Python-зависимости
+echo -e "${GREEN}>>> Устанавливаем Python-зависимости${NC}"
+pip install -U pip
+pip install -r requirements.txt
+
+# 4. Устанавливаем Node.js зависимости (если нужно)
+if [ -f "$PROJECT_DIR/package.json" ]; then
+    echo -e "${GREEN}>>> Устанавливаем Node.js зависимости${NC}"
+    npm ci --dev
+fi
+
+# 5. Собираем фронтенд (если нужно)
+if [ -f "$PROJECT_DIR/webpack.config.js" ]; then
+    echo -e "${GREEN}>>> Собираем фронтенд${NC}"
+    npm run build
+fi
+
+# 6. Применяем миграции
+echo -e "${GREEN}>>> Применяем миграции БД${NC}"
+
+# 7. Собираем статику Django
+echo -e "${GREEN}>>> Собираем статику Django${NC}"
+python manage.py collectstatic --noinput --clear
+
+# 8. Перезапускаем сервисы
+echo -e "${GREEN}>>> Перезапускаем сервисы${NC}"
+systemctl restart $SERVICE_NAME
+systemctl reload nginx.service
+
+echo -e "${GREEN}>>> Деплой успешно завершен!${NC}"
+```
+
+Даем права на выполнение:
+
+```
+chmod +x /opt/StarBurger/deploy_star_burger.sh
+```
+
+Проверяем работу скрипта:
+
+```
+./deploy_star_burger.sh
+```
+
+**Проект доступен по ссылке:** [Демо-версия](http://starburger.decebell.site)
 
 ## Цели проекта
 
