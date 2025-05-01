@@ -9,10 +9,10 @@
     "comment": "",
     "latitude": null,
     "longitude": null,
-    "firstname": "Маркел",
-    "lastname": "Иванов",
+    "firstname": "РњР°СЂРєРµР»",
+    "lastname": "РРІР°РЅРѕРІ",
     "phonenumber": "+79048908292",
-    "address": "Улица Партизана Железняка, 34а",
+    "address": "РЈР»РёС†Р° РџР°СЂС‚РёР·Р°РЅР° Р–РµР»РµР·РЅСЏРєР°, 34Р°",
     "created_at": "2025-04-16T18:16:51.669Z",
     "called_at": "2025-04-16T18:16:00Z",
     "delivered_at": "2025-04-17T19:16:33Z"
@@ -52,8 +52,8 @@
   "model": "foodcartapp.restaurant",
   "pk": 1,
   "fields": {
-    "name": "Вкусно ешь",
-    "address": "Москва, ул. Новый Арбат, 55",
+    "name": "Р’РєСѓСЃРЅРѕ РµС€СЊ",
+    "address": "РњРѕСЃРєРІР°, СѓР». РќРѕРІС‹Р№ РђСЂР±Р°С‚, 55",
     "contact_phone": "+7 (929) 949-55-55",
     "latitude": null,
     "longitude": null
@@ -63,8 +63,8 @@
   "model": "foodcartapp.restaurant",
   "pk": 2,
   "fields": {
-    "name": "Невский",
-    "address": "Москва, Красная площадь, 11",
+    "name": "РќРµРІСЃРєРёР№",
+    "address": "РњРѕСЃРєРІР°, РљСЂР°СЃРЅР°СЏ РїР»РѕС‰Р°РґСЊ, 11",
     "contact_phone": "+7 (967) 157-44-13",
     "latitude": null,
     "longitude": null
@@ -74,8 +74,8 @@
   "model": "foodcartapp.restaurant",
   "pk": 3,
   "fields": {
-    "name": "Star Burger Европейский",
-    "address": "Москва, пл. Киевского Вокзала, 2",
+    "name": "Star Burger Р•РІСЂРѕРїРµР№СЃРєРёР№",
+    "address": "РњРѕСЃРєРІР°, РїР». РљРёРµРІСЃРєРѕРіРѕ Р’РѕРєР·Р°Р»Р°, 2",
     "contact_phone": "+7 (929) 680-47-58",
     "latitude": null,
     "longitude": null
@@ -85,8 +85,8 @@
   "model": "foodcartapp.restaurant",
   "pk": 4,
   "fields": {
-    "name": "Star Burger Цветной",
-    "address": "Москва, Цветной бульвар, 11с2",
+    "name": "Star Burger Р¦РІРµС‚РЅРѕР№",
+    "address": "РњРѕСЃРєРІР°, Р¦РІРµС‚РЅРѕР№ Р±СѓР»СЊРІР°СЂ, 11СЃ2",
     "contact_phone": "+7 (929) 949-55-36",
     "latitude": null,
     "longitude": null
@@ -96,8 +96,8 @@
   "model": "foodcartapp.restaurant",
   "pk": 5,
   "fields": {
-    "name": "Star Burger Арбат",
-    "address": "Калуга, ул. Новый Арбат, 15",
+    "name": "Star Burger РђСЂР±Р°С‚",
+    "address": "РљР°Р»СѓРіР°, СѓР». РќРѕРІС‹Р№ РђСЂР±Р°С‚, 15",
     "contact_phone": "+7 (967) 157-44-13",
     "latitude": null,
     "longitude": null
@@ -107,26 +107,26 @@
   "model": "foodcartapp.productcategory",
   "pk": 1,
   "fields": {
-    "name": "Ролл"
+    "name": "Р РѕР»Р»"
   }
 },
 {
   "model": "foodcartapp.productcategory",
   "pk": 2,
   "fields": {
-    "name": "Бургер"
+    "name": "Р‘СѓСЂРіРµСЂ"
   }
 },
 {
   "model": "foodcartapp.product",
   "pk": 1,
   "fields": {
-    "name": "Шримп Ролл",
+    "name": "РЁСЂРёРјРї Р РѕР»Р»",
     "category": 1,
     "price": "209.00",
     "image": "shrimp_roll_fF51FKR_O85AGu3.jpg",
     "special_status": false,
-    "description": "Легкий ролл с нежными королевскими креветками в хрустящей панировке, свежий салат Айсберг и ломтик сыра в пшеничной лепешке под фирменным соусом «Кинг».",
+    "description": "Р›РµРіРєРёР№ СЂРѕР»Р» СЃ РЅРµР¶РЅС‹РјРё РєРѕСЂРѕР»РµРІСЃРєРёРјРё РєСЂРµРІРµС‚РєР°РјРё РІ С…СЂСѓСЃС‚СЏС‰РµР№ РїР°РЅРёСЂРѕРІРєРµ, СЃРІРµР¶РёР№ СЃР°Р»Р°С‚ РђР№СЃР±РµСЂРі Рё Р»РѕРјС‚РёРє СЃС‹СЂР° РІ РїС€РµРЅРёС‡РЅРѕР№ Р»РµРїРµС€РєРµ РїРѕРґ С„РёСЂРјРµРЅРЅС‹Рј СЃРѕСѓСЃРѕРј В«РљРёРЅРіВ».",
     "is_available": true,
     "comment": "",
     "restaurant": 5,
@@ -137,12 +137,12 @@
   "model": "foodcartapp.product",
   "pk": 2,
   "fields": {
-    "name": "Фиш Ролл",
+    "name": "Р¤РёС€ Р РѕР»Р»",
     "category": 1,
     "price": "199.00",
     "image": "fish_roll_hJh6RWM_zKKb1CU.jpg",
     "special_status": false,
-    "description": "Наш новый ролл с аппетитной котлеткой из филе белой рыбы, с фирменным соусом, маринованными огурчиками и хрустящим салатом. Легкое рыбное удовольствие!",
+    "description": "РќР°С€ РЅРѕРІС‹Р№ СЂРѕР»Р» СЃ Р°РїРїРµС‚РёС‚РЅРѕР№ РєРѕС‚Р»РµС‚РєРѕР№ РёР· С„РёР»Рµ Р±РµР»РѕР№ СЂС‹Р±С‹, СЃ С„РёСЂРјРµРЅРЅС‹Рј СЃРѕСѓСЃРѕРј, РјР°СЂРёРЅРѕРІР°РЅРЅС‹РјРё РѕРіСѓСЂС‡РёРєР°РјРё Рё С…СЂСѓСЃС‚СЏС‰РёРј СЃР°Р»Р°С‚РѕРј. Р›РµРіРєРѕРµ СЂС‹Р±РЅРѕРµ СѓРґРѕРІРѕР»СЊСЃС‚РІРёРµ!",
     "is_available": true,
     "comment": "",
     "restaurant": 4,
@@ -153,12 +153,12 @@
   "model": "foodcartapp.product",
   "pk": 3,
   "fields": {
-    "name": "Беконайзер",
+    "name": "Р‘РµРєРѕРЅР°Р№Р·РµСЂ",
     "category": 2,
     "price": "319.00",
     "image": "beconizer_9zxx095_lVXcOXO.jpg",
     "special_status": false,
-    "description": "\"Встречай самый внушительный бургер в коллекции Бургер Кинг. Много мяса, много бекона и много сыра - все, как ты любишь, и ничего лишнего!",
+    "description": "\"Р’СЃС‚СЂРµС‡Р°Р№ СЃР°РјС‹Р№ РІРЅСѓС€РёС‚РµР»СЊРЅС‹Р№ Р±СѓСЂРіРµСЂ РІ РєРѕР»Р»РµРєС†РёРё Р‘СѓСЂРіРµСЂ РљРёРЅРі. РњРЅРѕРіРѕ РјСЏСЃР°, РјРЅРѕРіРѕ Р±РµРєРѕРЅР° Рё РјРЅРѕРіРѕ СЃС‹СЂР° - РІСЃРµ, РєР°Рє С‚С‹ Р»СЋР±РёС€СЊ, Рё РЅРёС‡РµРіРѕ Р»РёС€РЅРµРіРѕ!",
     "is_available": true,
     "comment": "",
     "restaurant": 5,
@@ -169,12 +169,12 @@
   "model": "foodcartapp.product",
   "pk": 4,
   "fields": {
-    "name": "Тройной Воппер",
+    "name": "РўСЂРѕР№РЅРѕР№ Р’РѕРїРїРµСЂ",
     "category": 2,
     "price": "369.00",
     "image": "triple_vopper_sYAB2fg_2qwnduA.jpg",
     "special_status": false,
-    "description": "ВОППЕР® — это вкуснейшая приготовленная на огне 100% говядина с сочными помидорами, свежим нарезанным листовым салатом, густым майонезом, хрустящими маринованными огурчиками и свежим луком",
+    "description": "Р’РћРџРџР•Р В® вЂ” СЌС‚Рѕ РІРєСѓСЃРЅРµР№С€Р°СЏ РїСЂРёРіРѕС‚РѕРІР»РµРЅРЅР°СЏ РЅР° РѕРіРЅРµ 100% РіРѕРІСЏРґРёРЅР° СЃ СЃРѕС‡РЅС‹РјРё РїРѕРјРёРґРѕСЂР°РјРё, СЃРІРµР¶РёРј РЅР°СЂРµР·Р°РЅРЅС‹Рј Р»РёСЃС‚РѕРІС‹Рј СЃР°Р»Р°С‚РѕРј, РіСѓСЃС‚С‹Рј РјР°Р№РѕРЅРµР·РѕРј, С…СЂСѓСЃС‚СЏС‰РёРјРё РјР°СЂРёРЅРѕРІР°РЅРЅС‹РјРё РѕРіСѓСЂС‡РёРєР°РјРё Рё СЃРІРµР¶РёРј Р»СѓРєРѕРј",
     "is_available": true,
     "comment": "",
     "restaurant": 5,
@@ -185,12 +185,12 @@
   "model": "foodcartapp.product",
   "pk": 5,
   "fields": {
-    "name": "Лонг Чизбургер",
+    "name": "Р›РѕРЅРі Р§РёР·Р±СѓСЂРіРµСЂ",
     "category": 2,
     "price": "219.00",
     "image": "long_chiz_S6sUz9M_bxfXjS8.jpg",
     "special_status": false,
-    "description": "Лонг Чизбургер – эталон в коллекции чизбургеров! Два приготовленных на огне бифштекса с двумя ломтиками слегка расплавленного сыра, хрустящими огурчиками, рубленым луком, горчицей и кетчупом",
+    "description": "Р›РѕРЅРі Р§РёР·Р±СѓСЂРіРµСЂ вЂ“ СЌС‚Р°Р»РѕРЅ РІ РєРѕР»Р»РµРєС†РёРё С‡РёР·Р±СѓСЂРіРµСЂРѕРІ! Р”РІР° РїСЂРёРіРѕС‚РѕРІР»РµРЅРЅС‹С… РЅР° РѕРіРЅРµ Р±РёС„С€С‚РµРєСЃР° СЃ РґРІСѓРјСЏ Р»РѕРјС‚РёРєР°РјРё СЃР»РµРіРєР° СЂР°СЃРїР»Р°РІР»РµРЅРЅРѕРіРѕ СЃС‹СЂР°, С…СЂСѓСЃС‚СЏС‰РёРјРё РѕРіСѓСЂС‡РёРєР°РјРё, СЂСѓР±Р»РµРЅС‹Рј Р»СѓРєРѕРј, РіРѕСЂС‡РёС†РµР№ Рё РєРµС‚С‡СѓРїРѕРј",
     "is_available": true,
     "comment": "",
     "restaurant": 4,
@@ -201,12 +201,12 @@
   "model": "foodcartapp.product",
   "pk": 6,
   "fields": {
-    "name": "Стейкхаус",
+    "name": "РЎС‚РµР№РєС…Р°СѓСЃ",
     "category": 2,
     "price": "269.00",
     "image": "steak_M9Go2UC_W56EGgS.jpg",
     "special_status": false,
-    "description": "Стейкхаус – это сочетание нашей фирменной, приготовленной на огне 100% говядины с ломтиками бекона и соусом «Барбекю», майонезом, листьями свежего салата, помидором и хрустящим луком на воздушной було",
+    "description": "РЎС‚РµР№РєС…Р°СѓСЃ вЂ“ СЌС‚Рѕ СЃРѕС‡РµС‚Р°РЅРёРµ РЅР°С€РµР№ С„РёСЂРјРµРЅРЅРѕР№, РїСЂРёРіРѕС‚РѕРІР»РµРЅРЅРѕР№ РЅР° РѕРіРЅРµ 100% РіРѕРІСЏРґРёРЅС‹ СЃ Р»РѕРјС‚РёРєР°РјРё Р±РµРєРѕРЅР° Рё СЃРѕСѓСЃРѕРј В«Р‘Р°СЂР±РµРєСЋВ», РјР°Р№РѕРЅРµР·РѕРј, Р»РёСЃС‚СЊСЏРјРё СЃРІРµР¶РµРіРѕ СЃР°Р»Р°С‚Р°, РїРѕРјРёРґРѕСЂРѕРј Рё С…СЂСѓСЃС‚СЏС‰РёРј Р»СѓРєРѕРј РЅР° РІРѕР·РґСѓС€РЅРѕР№ Р±СѓР»Рѕ",
     "is_available": true,
     "comment": "",
     "restaurant": 5,
@@ -397,7 +397,7 @@
   "model": "geocoder.addresscoordinates",
   "pk": 1,
   "fields": {
-    "address": "Москва, ул. Новый Арбат, 55",
+    "address": "РњРѕСЃРєРІР°, СѓР». РќРѕРІС‹Р№ РђСЂР±Р°С‚, 55",
     "latitude": null,
     "longitude": null,
     "updated_at": "2025-04-16T17:58:28.291Z"
@@ -407,7 +407,7 @@
   "model": "geocoder.addresscoordinates",
   "pk": 2,
   "fields": {
-    "address": "Москва, Красная площадь, 11",
+    "address": "РњРѕСЃРєРІР°, РљСЂР°СЃРЅР°СЏ РїР»РѕС‰Р°РґСЊ, 11",
     "latitude": null,
     "longitude": null,
     "updated_at": "2025-04-16T17:58:54.460Z"
@@ -417,7 +417,7 @@
   "model": "geocoder.addresscoordinates",
   "pk": 3,
   "fields": {
-    "address": "Москва, пл. Киевского Вокзала, 2",
+    "address": "РњРѕСЃРєРІР°, РїР». РљРёРµРІСЃРєРѕРіРѕ Р’РѕРєР·Р°Р»Р°, 2",
     "latitude": null,
     "longitude": null,
     "updated_at": "2025-04-16T17:59:21.229Z"
@@ -427,7 +427,7 @@
   "model": "geocoder.addresscoordinates",
   "pk": 4,
   "fields": {
-    "address": "Москва, Цветной бульвар, 11с2",
+    "address": "РњРѕСЃРєРІР°, Р¦РІРµС‚РЅРѕР№ Р±СѓР»СЊРІР°СЂ, 11СЃ2",
     "latitude": null,
     "longitude": null,
     "updated_at": "2025-04-16T17:59:52.493Z"
@@ -437,7 +437,7 @@
   "model": "geocoder.addresscoordinates",
   "pk": 5,
   "fields": {
-    "address": "Калуга, ул. Новый Арбат, 15",
+    "address": "РљР°Р»СѓРіР°, СѓР». РќРѕРІС‹Р№ РђСЂР±Р°С‚, 15",
     "latitude": null,
     "longitude": null,
     "updated_at": "2025-04-16T18:00:16.394Z"
@@ -447,7 +447,7 @@
   "model": "geocoder.addresscoordinates",
   "pk": 6,
   "fields": {
-    "address": "Улица Партизана Железняка, 34а",
+    "address": "РЈР»РёС†Р° РџР°СЂС‚РёР·Р°РЅР° Р–РµР»РµР·РЅСЏРєР°, 34Р°",
     "latitude": null,
     "longitude": null,
     "updated_at": "2025-04-16T18:16:51.667Z"
@@ -461,7 +461,7 @@
     "user": 1,
     "content_type": 3,
     "object_id": "1",
-    "object_repr": "Ролл",
+    "object_repr": "Р РѕР»Р»",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -474,7 +474,7 @@
     "user": 1,
     "content_type": 3,
     "object_id": "2",
-    "object_repr": "Бургер",
+    "object_repr": "Р‘СѓСЂРіРµСЂ",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -487,7 +487,7 @@
     "user": 1,
     "content_type": 4,
     "object_id": "1",
-    "object_repr": "Вкусно ешь",
+    "object_repr": "Р’РєСѓСЃРЅРѕ РµС€СЊ",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -500,7 +500,7 @@
     "user": 1,
     "content_type": 4,
     "object_id": "2",
-    "object_repr": "Невский",
+    "object_repr": "РќРµРІСЃРєРёР№",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -513,7 +513,7 @@
     "user": 1,
     "content_type": 4,
     "object_id": "3",
-    "object_repr": "Star Burger Европейский",
+    "object_repr": "Star Burger Р•РІСЂРѕРїРµР№СЃРєРёР№",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -526,7 +526,7 @@
     "user": 1,
     "content_type": 4,
     "object_id": "4",
-    "object_repr": "Star Burger Цветной",
+    "object_repr": "Star Burger Р¦РІРµС‚РЅРѕР№",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -539,7 +539,7 @@
     "user": 1,
     "content_type": 4,
     "object_id": "5",
-    "object_repr": "Star Burger Арбат",
+    "object_repr": "Star Burger РђСЂР±Р°С‚",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -552,7 +552,7 @@
     "user": 1,
     "content_type": 2,
     "object_id": "1",
-    "object_repr": "Шримп Ролл",
+    "object_repr": "РЁСЂРёРјРї Р РѕР»Р»",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0426\\u0432\\u0435\\u0442\\u043d\\u043e\\u0439 - \\u0428\\u0440\\u0438\\u043c\\u043f \\u0420\\u043e\\u043b\\u043b\"}}]"
   }
@@ -565,7 +565,7 @@
     "user": 1,
     "content_type": 2,
     "object_id": "2",
-    "object_repr": "Фиш Ролл",
+    "object_repr": "Р¤РёС€ Р РѕР»Р»",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0415\\u0432\\u0440\\u043e\\u043f\\u0435\\u0439\\u0441\\u043a\\u0438\\u0439 - \\u0424\\u0438\\u0448 \\u0420\\u043e\\u043b\\u043b\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u0412\\u043a\\u0443\\u0441\\u043d\\u043e \\u0435\\u0448\\u044c - \\u0424\\u0438\\u0448 \\u0420\\u043e\\u043b\\u043b\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u041d\\u0435\\u0432\\u0441\\u043a\\u0438\\u0439 - \\u0424\\u0438\\u0448 \\u0420\\u043e\\u043b\\u043b\"}}]"
   }
@@ -578,7 +578,7 @@
     "user": 1,
     "content_type": 2,
     "object_id": "3",
-    "object_repr": "Беконайзер",
+    "object_repr": "Р‘РµРєРѕРЅР°Р№Р·РµСЂ",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u0412\\u043a\\u0443\\u0441\\u043d\\u043e \\u0435\\u0448\\u044c - \\u0411\\u0435\\u043a\\u043e\\u043d\\u0430\\u0439\\u0437\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u041d\\u0435\\u0432\\u0441\\u043a\\u0438\\u0439 - \\u0411\\u0435\\u043a\\u043e\\u043d\\u0430\\u0439\\u0437\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0426\\u0432\\u0435\\u0442\\u043d\\u043e\\u0439 - \\u0411\\u0435\\u043a\\u043e\\u043d\\u0430\\u0439\\u0437\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0415\\u0432\\u0440\\u043e\\u043f\\u0435\\u0439\\u0441\\u043a\\u0438\\u0439 - \\u0411\\u0435\\u043a\\u043e\\u043d\\u0430\\u0439\\u0437\\u0435\\u0440\"}}]"
   }
@@ -591,7 +591,7 @@
     "user": 1,
     "content_type": 2,
     "object_id": "4",
-    "object_repr": "Тройной Воппер",
+    "object_repr": "РўСЂРѕР№РЅРѕР№ Р’РѕРїРїРµСЂ",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u0412\\u043a\\u0443\\u0441\\u043d\\u043e \\u0435\\u0448\\u044c - \\u0422\\u0440\\u043e\\u0439\\u043d\\u043e\\u0439 \\u0412\\u043e\\u043f\\u043f\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u041d\\u0435\\u0432\\u0441\\u043a\\u0438\\u0439 - \\u0422\\u0440\\u043e\\u0439\\u043d\\u043e\\u0439 \\u0412\\u043e\\u043f\\u043f\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0426\\u0432\\u0435\\u0442\\u043d\\u043e\\u0439 - \\u0422\\u0440\\u043e\\u0439\\u043d\\u043e\\u0439 \\u0412\\u043e\\u043f\\u043f\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0415\\u0432\\u0440\\u043e\\u043f\\u0435\\u0439\\u0441\\u043a\\u0438\\u0439 - \\u0422\\u0440\\u043e\\u0439\\u043d\\u043e\\u0439 \\u0412\\u043e\\u043f\\u043f\\u0435\\u0440\"}}]"
   }
@@ -604,7 +604,7 @@
     "user": 1,
     "content_type": 2,
     "object_id": "5",
-    "object_repr": "Лонг Чизбургер",
+    "object_repr": "Р›РѕРЅРі Р§РёР·Р±СѓСЂРіРµСЂ",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u0412\\u043a\\u0443\\u0441\\u043d\\u043e \\u0435\\u0448\\u044c - \\u041b\\u043e\\u043d\\u0433 \\u0427\\u0438\\u0437\\u0431\\u0443\\u0440\\u0433\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u041d\\u0435\\u0432\\u0441\\u043a\\u0438\\u0439 - \\u041b\\u043e\\u043d\\u0433 \\u0427\\u0438\\u0437\\u0431\\u0443\\u0440\\u0433\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0415\\u0432\\u0440\\u043e\\u043f\\u0435\\u0439\\u0441\\u043a\\u0438\\u0439 - \\u041b\\u043e\\u043d\\u0433 \\u0427\\u0438\\u0437\\u0431\\u0443\\u0440\\u0433\\u0435\\u0440\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0410\\u0440\\u0431\\u0430\\u0442 - \\u041b\\u043e\\u043d\\u0433 \\u0427\\u0438\\u0437\\u0431\\u0443\\u0440\\u0433\\u0435\\u0440\"}}]"
   }
@@ -617,7 +617,7 @@
     "user": 1,
     "content_type": 2,
     "object_id": "6",
-    "object_repr": "Стейкхаус",
+    "object_repr": "РЎС‚РµР№РєС…Р°СѓСЃ",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0426\\u0432\\u0435\\u0442\\u043d\\u043e\\u0439 - \\u0421\\u0442\\u0435\\u0439\\u043a\\u0445\\u0430\\u0443\\u0441\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"Star Burger \\u0415\\u0432\\u0440\\u043e\\u043f\\u0435\\u0439\\u0441\\u043a\\u0438\\u0439 - \\u0421\\u0442\\u0435\\u0439\\u043a\\u0445\\u0430\\u0443\\u0441\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u041d\\u0435\\u0432\\u0441\\u043a\\u0438\\u0439 - \\u0421\\u0442\\u0435\\u0439\\u043a\\u0445\\u0430\\u0443\\u0441\"}}, {\"added\": {\"name\": \"\\u043f\\u0443\\u043d\\u043a\\u0442 \\u043c\\u0435\\u043d\\u044e \\u0440\\u0435\\u0441\\u0442\\u043e\\u0440\\u0430\\u043d\\u0430\", \"object\": \"\\u0412\\u043a\\u0443\\u0441\\u043d\\u043e \\u0435\\u0448\\u044c - \\u0421\\u0442\\u0435\\u0439\\u043a\\u0445\\u0430\\u0443\\u0441\"}}]"
   }
@@ -630,7 +630,7 @@
     "user": 1,
     "content_type": 1,
     "object_id": "1",
-    "object_repr": "Заказ №1 от 16-04-2025 18:16",
+    "object_repr": "Р—Р°РєР°Р· в„–1 РѕС‚ 16-04-2025 18:16",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"\\u044d\\u043b\\u0435\\u043c\\u0435\\u043d\\u0442 \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430\", \"object\": \"\\u0411\\u0435\\u043a\\u043e\\u043d\\u0430\\u0439\\u0437\\u0435\\u0440 x 1\"}}, {\"added\": {\"name\": \"\\u044d\\u043b\\u0435\\u043c\\u0435\\u043d\\u0442 \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430\", \"object\": \"\\u041b\\u043e\\u043d\\u0433 \\u0427\\u0438\\u0437\\u0431\\u0443\\u0440\\u0433\\u0435\\u0440 x 2\"}}, {\"added\": {\"name\": \"\\u044d\\u043b\\u0435\\u043c\\u0435\\u043d\\u0442 \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430\", \"object\": \"\\u0424\\u0438\\u0448 \\u0420\\u043e\\u043b\\u043b x 1\"}}]"
   }
@@ -639,7 +639,7 @@
   "model": "auth.permission",
   "pk": 1,
   "fields": {
-    "name": "Can add заказ",
+    "name": "Can add Р·Р°РєР°Р·",
     "content_type": 1,
     "codename": "add_order"
   }
@@ -648,7 +648,7 @@
   "model": "auth.permission",
   "pk": 2,
   "fields": {
-    "name": "Can change заказ",
+    "name": "Can change Р·Р°РєР°Р·",
     "content_type": 1,
     "codename": "change_order"
   }
@@ -657,7 +657,7 @@
   "model": "auth.permission",
   "pk": 3,
   "fields": {
-    "name": "Can delete заказ",
+    "name": "Can delete Р·Р°РєР°Р·",
     "content_type": 1,
     "codename": "delete_order"
   }
@@ -666,7 +666,7 @@
   "model": "auth.permission",
   "pk": 4,
   "fields": {
-    "name": "Can view заказ",
+    "name": "Can view Р·Р°РєР°Р·",
     "content_type": 1,
     "codename": "view_order"
   }
@@ -675,7 +675,7 @@
   "model": "auth.permission",
   "pk": 5,
   "fields": {
-    "name": "Can add товар",
+    "name": "Can add С‚РѕРІР°СЂ",
     "content_type": 2,
     "codename": "add_product"
   }
@@ -684,7 +684,7 @@
   "model": "auth.permission",
   "pk": 6,
   "fields": {
-    "name": "Can change товар",
+    "name": "Can change С‚РѕРІР°СЂ",
     "content_type": 2,
     "codename": "change_product"
   }
@@ -693,7 +693,7 @@
   "model": "auth.permission",
   "pk": 7,
   "fields": {
-    "name": "Can delete товар",
+    "name": "Can delete С‚РѕРІР°СЂ",
     "content_type": 2,
     "codename": "delete_product"
   }
@@ -702,7 +702,7 @@
   "model": "auth.permission",
   "pk": 8,
   "fields": {
-    "name": "Can view товар",
+    "name": "Can view С‚РѕРІР°СЂ",
     "content_type": 2,
     "codename": "view_product"
   }
@@ -711,7 +711,7 @@
   "model": "auth.permission",
   "pk": 9,
   "fields": {
-    "name": "Can add категория",
+    "name": "Can add РєР°С‚РµРіРѕСЂРёСЏ",
     "content_type": 3,
     "codename": "add_productcategory"
   }
@@ -720,7 +720,7 @@
   "model": "auth.permission",
   "pk": 10,
   "fields": {
-    "name": "Can change категория",
+    "name": "Can change РєР°С‚РµРіРѕСЂРёСЏ",
     "content_type": 3,
     "codename": "change_productcategory"
   }
@@ -729,7 +729,7 @@
   "model": "auth.permission",
   "pk": 11,
   "fields": {
-    "name": "Can delete категория",
+    "name": "Can delete РєР°С‚РµРіРѕСЂРёСЏ",
     "content_type": 3,
     "codename": "delete_productcategory"
   }
@@ -738,7 +738,7 @@
   "model": "auth.permission",
   "pk": 12,
   "fields": {
-    "name": "Can view категория",
+    "name": "Can view РєР°С‚РµРіРѕСЂРёСЏ",
     "content_type": 3,
     "codename": "view_productcategory"
   }
@@ -747,7 +747,7 @@
   "model": "auth.permission",
   "pk": 13,
   "fields": {
-    "name": "Can add ресторан",
+    "name": "Can add СЂРµСЃС‚РѕСЂР°РЅ",
     "content_type": 4,
     "codename": "add_restaurant"
   }
@@ -756,7 +756,7 @@
   "model": "auth.permission",
   "pk": 14,
   "fields": {
-    "name": "Can change ресторан",
+    "name": "Can change СЂРµСЃС‚РѕСЂР°РЅ",
     "content_type": 4,
     "codename": "change_restaurant"
   }
@@ -765,7 +765,7 @@
   "model": "auth.permission",
   "pk": 15,
   "fields": {
-    "name": "Can delete ресторан",
+    "name": "Can delete СЂРµСЃС‚РѕСЂР°РЅ",
     "content_type": 4,
     "codename": "delete_restaurant"
   }
@@ -774,7 +774,7 @@
   "model": "auth.permission",
   "pk": 16,
   "fields": {
-    "name": "Can view ресторан",
+    "name": "Can view СЂРµСЃС‚РѕСЂР°РЅ",
     "content_type": 4,
     "codename": "view_restaurant"
   }
@@ -783,7 +783,7 @@
   "model": "auth.permission",
   "pk": 17,
   "fields": {
-    "name": "Can add элемент заказа",
+    "name": "Can add СЌР»РµРјРµРЅС‚ Р·Р°РєР°Р·Р°",
     "content_type": 5,
     "codename": "add_orderitem"
   }
@@ -792,7 +792,7 @@
   "model": "auth.permission",
   "pk": 18,
   "fields": {
-    "name": "Can change элемент заказа",
+    "name": "Can change СЌР»РµРјРµРЅС‚ Р·Р°РєР°Р·Р°",
     "content_type": 5,
     "codename": "change_orderitem"
   }
@@ -801,7 +801,7 @@
   "model": "auth.permission",
   "pk": 19,
   "fields": {
-    "name": "Can delete элемент заказа",
+    "name": "Can delete СЌР»РµРјРµРЅС‚ Р·Р°РєР°Р·Р°",
     "content_type": 5,
     "codename": "delete_orderitem"
   }
@@ -810,7 +810,7 @@
   "model": "auth.permission",
   "pk": 20,
   "fields": {
-    "name": "Can view элемент заказа",
+    "name": "Can view СЌР»РµРјРµРЅС‚ Р·Р°РєР°Р·Р°",
     "content_type": 5,
     "codename": "view_orderitem"
   }
@@ -819,7 +819,7 @@
   "model": "auth.permission",
   "pk": 21,
   "fields": {
-    "name": "Can add пункт меню ресторана",
+    "name": "Can add РїСѓРЅРєС‚ РјРµРЅСЋ СЂРµСЃС‚РѕСЂР°РЅР°",
     "content_type": 6,
     "codename": "add_restaurantmenuitem"
   }
@@ -828,7 +828,7 @@
   "model": "auth.permission",
   "pk": 22,
   "fields": {
-    "name": "Can change пункт меню ресторана",
+    "name": "Can change РїСѓРЅРєС‚ РјРµРЅСЋ СЂРµСЃС‚РѕСЂР°РЅР°",
     "content_type": 6,
     "codename": "change_restaurantmenuitem"
   }
@@ -837,7 +837,7 @@
   "model": "auth.permission",
   "pk": 23,
   "fields": {
-    "name": "Can delete пункт меню ресторана",
+    "name": "Can delete РїСѓРЅРєС‚ РјРµРЅСЋ СЂРµСЃС‚РѕСЂР°РЅР°",
     "content_type": 6,
     "codename": "delete_restaurantmenuitem"
   }
@@ -846,7 +846,7 @@
   "model": "auth.permission",
   "pk": 24,
   "fields": {
-    "name": "Can view пункт меню ресторана",
+    "name": "Can view РїСѓРЅРєС‚ РјРµРЅСЋ СЂРµСЃС‚РѕСЂР°РЅР°",
     "content_type": 6,
     "codename": "view_restaurantmenuitem"
   }
@@ -855,7 +855,7 @@
   "model": "auth.permission",
   "pk": 25,
   "fields": {
-    "name": "Can add координаты адреса",
+    "name": "Can add РєРѕРѕСЂРґРёРЅР°С‚С‹ Р°РґСЂРµСЃР°",
     "content_type": 7,
     "codename": "add_addresscoordinates"
   }
@@ -864,7 +864,7 @@
   "model": "auth.permission",
   "pk": 26,
   "fields": {
-    "name": "Can change координаты адреса",
+    "name": "Can change РєРѕРѕСЂРґРёРЅР°С‚С‹ Р°РґСЂРµСЃР°",
     "content_type": 7,
     "codename": "change_addresscoordinates"
   }
@@ -873,7 +873,7 @@
   "model": "auth.permission",
   "pk": 27,
   "fields": {
-    "name": "Can delete координаты адреса",
+    "name": "Can delete РєРѕРѕСЂРґРёРЅР°С‚С‹ Р°РґСЂРµСЃР°",
     "content_type": 7,
     "codename": "delete_addresscoordinates"
   }
@@ -882,7 +882,7 @@
   "model": "auth.permission",
   "pk": 28,
   "fields": {
-    "name": "Can view координаты адреса",
+    "name": "Can view РєРѕРѕСЂРґРёРЅР°С‚С‹ Р°РґСЂРµСЃР°",
     "content_type": 7,
     "codename": "view_addresscoordinates"
   }

@@ -50,7 +50,7 @@ class App extends Component {
   async handleCheckout({firstname, lastname, phonenumber, address}){
     const url = "api/order/";
     let data = {
-      'products': this.state.cart.map(item=>({
+      'items': this.state.cart.map(item=>({
         product: item.id,
         quantity: item.quantity,
       })),
@@ -86,6 +86,7 @@ class App extends Component {
       alert("Заказ оформлен. Вам перезвонят в течение 10 минут.");
 
       this.handleCartClose();
+      this.handleCheckoutModalClose();
     } catch(error){
       alert('Ошибка при оформлении заказа. Попробуйте ещё раз или свяжитесь с нами по телефону.');
       throw error;

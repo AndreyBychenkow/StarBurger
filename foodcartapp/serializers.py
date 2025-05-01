@@ -29,13 +29,13 @@ class OrderSerializer(serializers.ModelSerializer):
     )
 
     firstname = serializers.CharField(
-        max_length=10,
+        max_length=50,
         min_length=2,
         trim_whitespace=True
     )
 
     lastname = serializers.CharField(
-        max_length=20,
+        max_length=50,
         min_length=2,
         trim_whitespace=True
     )
@@ -55,12 +55,22 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ['id', 'firstname', 'lastname', 'phonenumber', 'address', 'items']
         read_only_fields = ['id']
 
+    def validate_items(self, value):
+        if not value:
+            raise serializers.ValidationError("Заказ должен содержать хотя бы один товар")
+        return value
+
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         order = Order.objects.create(**validated_data)
 
         order_items = [
-            OrderItem(order=order, **item_data)
+            OrderItem(
+                order=order,
+                product=item_data['product'],
+                quantity=item_data['quantity'],
+                fixed_price=item_data['product'].price
+            )
             for item_data in items_data
         ]
         OrderItem.objects.bulk_create(order_items)
