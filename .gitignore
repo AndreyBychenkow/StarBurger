@@ -143,3 +143,17 @@ cython_debug/
 
 .parcel-cache/
 db.sqlite3
+/staticfiles/
+
+# Generated static files
+/staticfiles/
+/bundles/
+
+# Deployment scripts with sensitive data
+deploy_star_burger.sh
+
+# Media files
+/media/
+
+# Package manager files
+package-lock.json
