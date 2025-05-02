@@ -35,9 +35,10 @@ INSTALLED_APPS = [
 ]
 
 ROLLBAR = {
-    'access_token': env('TOKEN_ROLLBAR_PROD'),
-    'environment': 'production',
+    'access_token': env('TOKEN_ROLLBAR_PROD', ''),
+    'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
+    'enabled': bool(env('TOKEN_ROLLBAR_PROD', '')),
     'exception_level_filters': [
         (Http404, 'ignored'),
     ],

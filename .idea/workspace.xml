@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="316ab793-9b10-41f6-b0a0-6231573fdc29" name="Список изменений" comment="readme updated" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AndreyBychenkow&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AndreyBychenkow/StarBurger.git&quot;,
+    &quot;accountId&quot;: &quot;46a69e08-43c4-404a-9261-9d54dcd10e46&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2sziVBxtoQ1XorpzfBggdeTFbVp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Notification.DisplayName-DoNotAsk-Black Formatter Integration&quot;: &quot;Black&quot;,
+    &quot;Notification.DoNotAsk-Black Formatter Integration&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for test_geocoder.GeocoderUtilsTestCase.test_get_coordinates_invalid_address.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_geocoder.GeocoderUtilsTestCase.test_get_coordinates_updates_existing_record.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_geocoder.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.coding.executor&quot;: &quot;Run&quot;,
+    &quot;Python.in_utf-8.executor&quot;: &quot;Run&quot;,
+    &quot;Python.settings.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tests.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/alkoteka_parser&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Проект&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Python.in_utf-8">
+    <configuration name="coding" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="star-burger" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/coding.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="in_utf-8" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="star-burger" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/in_utf-8.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="star-burger" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/geocoder" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/geocoder/tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_geocoder.GeocoderUtilsTestCase.test_get_coordinates_updates_existing_record" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="star-burger" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/foodcartapp/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_geocoder.GeocoderUtilsTestCase.test_get_coordinates_updates_existing_record&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in tests" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="star-burger" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/foodcartapp/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/foodcartapp/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.in_utf-8" />
+        <item itemvalue="Python.coding" />
+        <item itemvalue="Python.tests" />
+        <item itemvalue="Python tests.Python tests in tests" />
+        <item itemvalue="Python tests.Python tests for test_geocoder.GeocoderUtilsTestCase.test_get_coordinates_updates_existing_record" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="уровень приложения" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Задача по умолчанию">
+      <changelist id="316ab793-9b10-41f6-b0a0-6231573fdc29" name="Список изменений" comment="" />
+      <created>1739464825235</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739464825235</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add models for order data">
+      <option name="closed" value="true" />
+      <created>1739636927448</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739636927448</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Setup DRF">
+      <option name="closed" value="true" />
+      <created>1739641199995</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739641199995</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add data validation for register_order">
+      <option name="closed" value="true" />
+      <created>1739643500835</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739643500835</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Extend data validation for def register_order">
+      <option name="closed" value="true" />
+      <created>1739647510371</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739647510371</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Rewrite data validation logic with DRF">
+      <option name="closed" value="true" />
+      <created>1739650357573</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1739650357573</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Send order data to frontend">
+      <option name="closed" value="true" />
+      <created>1739653767170</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739653767170</updated>
+    </task>
+    <task id="LOCAL-00007" summary="List orders into manager UI">
+      <option name="closed" value="true" />
+      <created>1739704486835</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739704486835</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added total order cost">
+      <option name="closed" value="true" />
+      <created>1739707031979</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739707031979</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed order price added">
+      <option name="closed" value="true" />
+      <created>1739720846200</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1739720846200</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Transaction created for related queries">
+      <option name="closed" value="true" />
+      <created>1739810605626</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1739810605626</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added link to edit order in admin panel">
+      <option name="closed" value="true" />
+      <created>1739812017980</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1739812017980</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Manager interface return processed">
+      <option name="closed" value="true" />
+      <created>1739813251757</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1739813251757</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added order status recording">
+      <option name="closed" value="true" />
+      <created>1739814384576</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1739814384576</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added the ability to leave comments">
+      <option name="closed" value="true" />
+      <created>1739815731517</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1739815731517</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added order fulfillment tracking">
+      <option name="closed" value="true" />
+      <created>1739817727872</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1739817727872</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added payment method for orders">
+      <option name="closed" value="true" />
+      <created>1739819047241</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1739819047241</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added restaurant selection">
+      <option name="closed" value="true" />
+      <created>1739905296271</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1739905296271</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Distance to restaurants added">
+      <option name="closed" value="true" />
+      <created>1739990347695</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1739990347695</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Saving distance in DB">
+      <option name="closed" value="true" />
+      <created>1740071220411</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1740071220411</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Replaced default DEBUG value to False, Used global import">
+      <option name="closed" value="true" />
+      <created>1740421713528</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1740421713528</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Error handling has been localized">
+      <option name="closed" value="true" />
+      <created>1740422913674</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1740422913674</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added field restriction, Removed default">
+      <option name="closed" value="true" />
+      <created>1740423783463</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1740423783463</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Removed extra field">
+      <option name="closed" value="true" />
+      <created>1740424105916</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1740424105916</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Error handling has been localized">
+      <option name="closed" value="true" />
+      <created>1740431193668</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1740431193668</updated>
+    </task>
+    <task id="LOCAL-00025" summary="code edited">
+      <option name="closed" value="true" />
+      <created>1741192582168</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1741192582168</updated>
+    </task>
+    <task id="LOCAL-00026" summary="tests corrected">
+      <option name="closed" value="true" />
+      <created>1741289431652</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1741289431652</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="List orders into manager UI" />
+    <MESSAGE value="Added total order cost" />
+    <MESSAGE value="Fixed order price added" />
+    <MESSAGE value="Transaction created for related queries" />
+    <MESSAGE value="Added link to edit order in admin panel" />
+    <MESSAGE value="Manager interface return processed" />
+    <MESSAGE value="Added order status recording" />
+    <MESSAGE value="Added the ability to leave comments" />
+    <MESSAGE value="Added order fulfillment tracking" />
+    <MESSAGE value="Added payment method for orders" />
+    <MESSAGE value="Added restaurant selection" />
+    <MESSAGE value="Distance to restaurants added" />
+    <MESSAGE value="Saving distance in DB" />
+    <MESSAGE value="Replaced default DEBUG value to False, Used global import" />
+    <MESSAGE value="Added field restriction, Removed default" />
+    <MESSAGE value="Removed extra field" />
+    <MESSAGE value="Error handling has been localized" />
+    <MESSAGE value="code edited" />
+    <MESSAGE value="tests corrected" />
+    <MESSAGE value="add media" />
+    <MESSAGE value="add migrations" />
+    <MESSAGE value="setup rollbar" />
+    <MESSAGE value="transfer settings file to production" />
+    <MESSAGE value="switch to PostgreSQL DB" />
+    <MESSAGE value="readme updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme updated" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
+</project>
