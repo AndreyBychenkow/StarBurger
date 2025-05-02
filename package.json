@@ -3,12 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "parcel watch bundles-src/index.js --dist-dir bundles --public-url /static/",
-    "build": "parcel build bundles-src/index.js --dist-dir bundles --public-url /static/"
+    "dev": "parcel watch bundles-src/index.js -d bundles --public-url /static/",
+    "build": "parcel build bundles-src/index.js -d bundles --public-url /static/"
   },
   "browserslist": [
     "last 2 chrome versions"
   ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
@@ -21,8 +30,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
-    "@parcel/transformer-sass": "2.4.0",
-    "parcel": "^2.4.0",
-    "process": "^0.11.10"
+    "@babel/preset-env": "^7.16.11",
+    "parcel-bundler": "1.12.5",
+    "sass": "^1.32.8"
   }
 }
