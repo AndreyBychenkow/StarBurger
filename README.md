@@ -160,6 +160,7 @@ Parcel будет следить за файлами в каталоге `bundle
 - `TOKEN_ROLLBAR_PROD`= "Токен системы мониторинга Rollbar"(для`production`)
 - `DATABASE_URL`=postgres://starburger_user:0704@localhost:5432/starburger_dev
 - `YANDEX_GEOCODER_API_KEY`="Ключ Яндекс JavaScript API и HTTP Геокодера"
+- `ROLLBAR_ENVIRONMENT`="Настройки Rollbar экземпляра проекта. По-умолчанию "production""
 
 Для автоматизированного обновления прод-версии, можно использовать следующий bash-скрипт.
 Создайте файл deploy_star_burger.sh в удобном месте со следующим содержанием:
