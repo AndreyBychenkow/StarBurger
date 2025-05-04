@@ -34,9 +34,11 @@ INSTALLED_APPS = [
     'debug_toolbar',
 ]
 
+ROLLBAR_ENVIRONMENT = env('ENVIRONMENT', 'production')
+
 ROLLBAR = {
     'access_token': env('TOKEN_ROLLBAR_PROD', ''),
-    'environment': 'development' if DEBUG else 'production',
+    'environment': ROLLBAR_ENVIRONMENT,
     'root': BASE_DIR,
     'enabled': bool(env('TOKEN_ROLLBAR_PROD', '')),
     'exception_level_filters': [

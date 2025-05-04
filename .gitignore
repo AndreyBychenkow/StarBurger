@@ -154,6 +154,3 @@ deploy_star_burger.sh
 
 # Media files
 /media/
-
-# Package manager files
-package-lock.json
